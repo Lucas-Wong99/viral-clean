@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+    </head>
 
   <body>
     <%- include('partials/_header') %>
@@ -20,12 +18,18 @@
       
     </form>
 
-    <% for (const item of items) { %>
-      <div>
-        <h1><%= item.name %></h1>
-        <p><%= item.description %></p>
-        <img src="<%= item.image_url %>">
-      </div>
-    <% } %>
+    <div class='items-container'>
+      <% for (const item of items) { %>
+        <%- include('partials/_item', {item: item}) %>
+      <% } %>
+    </div>
+
+    
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script src="https://kit.fontawesome.com/cd7e20452a.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script> -->
+    
   </body>
 </html>

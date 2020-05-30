@@ -1,7 +1,10 @@
 // See: https://sass-lang.com/
 @import 'header';
+@import 'item';
+@import 'items-container';
 
 body {
+  padding-top: 120px;
   background-color: #EEE;
 
   font-family: 'Roboto', sans-serif;
