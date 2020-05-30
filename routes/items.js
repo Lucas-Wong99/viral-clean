@@ -15,26 +15,9 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const items = data.rows;
-        // res.json({ items });
         res.render("index", { items });
-      })
+      });
   });
 
   return router;
 };
-
-// module.exports = (db) => {
-//   router.get("/", (req, res) => {
-//     db.query(`SELECT * FROM users;`)
-//       .then(data => {
-//         const users = data.rows;
-//         res.json({ users });
-//       })
-//       .catch(err => {
-//         res
-//           .status(500)
-//           .json({ error: err.message });
-//       });
-//   });
-//   return router;
-// };
