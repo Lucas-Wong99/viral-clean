@@ -6,12 +6,20 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Hello, World!</h1>
+    <%- include('partials/_header') %>
+    <% for (const item of items) { %>
+      <div>
+        <h1><%= item.name %></h1>
+        <p><%= item.description %></p>
+        <img src="<%= item.image_url %>">
+      </div>
+    <% } %>
   </body>
 </html>
