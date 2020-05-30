@@ -1,0 +1,33 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 200px;
+  padding: 60px;
+
+  background-color: lightblue;
+
+  .nav-logo {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+
+    li {
+      font-size: 20px;
+      margin: 0 20px;
+    }
+  }
+
+  .nav-logo a, ul a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
