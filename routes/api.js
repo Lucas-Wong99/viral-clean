@@ -29,7 +29,7 @@ module.exports = (db) => {
     db.query(query, queryParams)
       .then(data => {
         const items = data.rows;
-        res.json({ items });
+        res.render('my_listings', { items });
       });
   });
 
