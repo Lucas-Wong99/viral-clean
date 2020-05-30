@@ -7,15 +7,42 @@
 
 const express = require('express');
 const router  = express.Router();
+const { retrieveUserFromDB } = require('../lib/helpers');
 
 module.exports = (db) => {
 
   router.get('/', (req, res) => {
     let query = `SELECT * FROM items;`
-    db.query(query)
+
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      db.query(query)
       .then(data => {
         const items = data.rows;
-        res.render("index", { items });
+        res.render("index", { items, username });
+      });
+    });
+  });
+
+  router.get('/new', (req, res) => {
+    const userId = req.session.user_id;
+
+    retrieveUserFromDB(db, userId)
+      .then((username) => {
+        res.render('new_listing', { username });
+      })
+  });
+
+  router.post('/', (req, res) => {
+    const query = `
+    INSERT INTO items (seller_id, name, description, price, image_url, city)
+    VALUES ($1, $2, $3, $4, $5, $6);
+    `;
+    const { name, description, image_photo_url, city, price_for_item } = req.body;
+    const queryParams = [req.session.user_id, name, description, price_for_item, image_photo_url, city];
+    db.query(query, queryParams)
+      .then(() => {
+        res.redirect('/api/myitems');
       });
   });
 

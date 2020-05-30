@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-
+const { retrieveUserFromDB } = require('../lib/helpers');
 const itemsRoutes = require("./items");
 
 module.exports = (db) => {
@@ -13,12 +13,6 @@ module.exports = (db) => {
     res.redirect('/');
   });
 
-  // Logout a user
-  router.get('/logout/', (req, res) => {
-    req.session = null;
-    res.redirect('/');
-  });
-
   // Get items for the user with this id
   router.get('/myitems', (req, res) => {
     const queryParams = [req.session.user_id];
@@ -26,11 +20,52 @@ module.exports = (db) => {
     SELECT * FROM items
     WHERE seller_id = $1;
     `;
-    db.query(query, queryParams)
+
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      db.query(query, queryParams)
       .then(data => {
+        console.log(username);
         const items = data.rows;
-        res.render('my_listings', { items });
+        res.render('my_listings', { items, username });
       });
+    })
+
+
+  });
+
+  // Get starred items for the user with this id
+  router.get('/favourites', (req, res) => {
+    const queryParams = [req.session.user_id];
+    let query = `
+    SELECT * FROM items
+    JOIN user_favourites ON user_favourites.item_id = items.id
+    WHERE user_id = $1;
+    `;
+
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      db.query(query, queryParams)
+      .then(data => {
+        console.log(username);
+        const items = data.rows;
+        res.render('favourites', { items, username });
+      });
+    })
+
+
+    router.post('/favourites/', (req, res) => {
+      const queryParams = [req.session.user_id];
+      let query = `
+      INSERT INTO user_favourites (user_id, item_id)
+      VALUES ($1, 2);
+      `;
+      db.query(query, queryParams)
+        .then(() => {
+          res.redirect('/favourites');
+        })
+    });
+
   });
 
   return router;
