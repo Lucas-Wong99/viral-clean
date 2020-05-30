@@ -34,5 +34,39 @@ module.exports = (db) => {
 
   });
 
+  // Get starred items for the user with this id
+  router.get('/favourites', (req, res) => {
+    const queryParams = [req.session.user_id];
+    let query = `
+    SELECT * FROM items
+    JOIN user_favourites ON user_favourites.item_id = items.id
+    WHERE user_id = $1;
+    `;
+
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      db.query(query, queryParams)
+      .then(data => {
+        console.log(username);
+        const items = data.rows;
+        res.render('favourites', { items, username });
+      });
+    })
+
+
+    router.post('/favourites/', (req, res) => {
+      const queryParams = [req.session.user_id];
+      let query = `
+      INSERT INTO user_favourites (user_id, item_id)
+      VALUES ($1, 2);
+      `;
+      db.query(query, queryParams)
+        .then(() => {
+          res.redirect('/favourites');
+        })
+    });
+
+  });
+
   return router;
 };
