@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    </head>
+
+  <body>
+
+    <%- include('partials/_header') %>
+
+    <main class="full-item-container">
+
+      <div class="full-item-header">
+        <h2>title</h2>
+        <h2>Price</h2>
+        <div>Star thing</div>
+      </div>
+
+      <div class="full-item-body">
+        <img src="#">
+        <p>
+          Description
+        </p>
+      </div>
+      <div class="full-item-footer">
+        <span>City</span>
+        <span>Days ago</span>
+        <h2>Contact Seller</h2>
+      </div>
+      <form action="/api/messages" method="POST" class="message-seller-form">
+        <label for="message"></label>
+        <input type="text" name="message" placeholder="Your message...">
+        <button>Send</button>
+        <a id="message-form__cancel" href="#">Cancel</a>
+      </form>
+    </main>
+    
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script src="https://kit.fontawesome.com/cd7e20452a.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script> -->
+    
+  </body>
+</html>
