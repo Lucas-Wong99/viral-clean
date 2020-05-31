@@ -8,7 +8,10 @@
     <a href="/api/items/<%= item.id %>"><h3><%= item.name %></h3></a>
   </div>
   <div class='item-footer'>
-    <i class="fas fa-star"></i>
+    <a class="favourite-button">
+      <i class="fas fa-star" title="<%= item.id %>"></i>
+    </a>
+
   </div>
-  
+
 </div>

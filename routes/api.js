@@ -52,20 +52,20 @@ module.exports = (db) => {
         res.render('favourites', { items, username });
       });
     })
+  });
 
-
-    router.post('/favourites/', (req, res) => {
-      const queryParams = [req.session.user_id];
-      let query = `
-      INSERT INTO user_favourites (user_id, item_id)
-      VALUES ($1, 2);
-      `;
-      db.query(query, queryParams)
-        .then(() => {
-          res.redirect('/favourites');
-        })
-    });
-
+  router.post('/favourites', (req, res) => {
+    console.log(req.body);
+    const queryParams = [req.session.user_id, req.body.item_id];
+    let query = `
+    INSERT INTO user_favourites (user_id, item_id)
+    VALUES ($1, $2);
+    `;
+    db.query(query, queryParams)
+      .then(() => {
+        // res.redirect('/api/favourites');
+        res.status(200).send('IT WORKED');
+      });
   });
 
   return router;

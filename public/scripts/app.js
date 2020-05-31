@@ -30,7 +30,22 @@ $(() => {
         }
         console.log(items);
       })
-  });  
-  
+  });
+
+  $('.favourite-button').on('click', (event) => {
+    console.log(event);
+    const data = { item_id: event.target.title };
+    // console.log
+
+    $.ajax({
+      type: "POST",
+      url: "/api/favourites",
+      data: data
+    })
+    .done(confirmed => {
+      $(".fa-star").addClass("yellow");
+    })
+  });
+
 });
 
