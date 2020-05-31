@@ -1,16 +1,19 @@
 <form name="search-form" id="search-form">
-  <div>
+  <div class='search-form-main-field'>
     <input type="text" name="input_string" placeholder="Search...">
+    <select name="order_by" class='search-form-order'>
+      <option value="date">Date</option>
+      <option value="price_asc">Price &#x2191</option>
+      <option value="price_desc">Price &#x2193</option>
+    </select>
+    <button class='search-form-submit' type="submit"><i class="fa fa-search"></i></button>
+
   </div>
-  <div>
+  <div class='search-form-filters'>
     <input type="text" name="min_price" placeholder="Min price">
     <input type="text" name="max_price" placeholder="Max price">
     <input type="text" name="city" placeholder="City">
-    <select name="order_by">
-      <option value="date">Date</option>
-      <option value="price_asc">Price &#x2191</option>
-      <option value="price_desc">Price &#x2193</option>  
-    </select>
+
   </div>
-  <input type="submit" value="Submit">
+
 </form>
