@@ -14,17 +14,13 @@
   <body>
     <%- include('partials/_header') %>
 
-    <form action="/items" method="POST">
-      
-    </form>
+    <%- include('partials/_search_form') %>
 
     <div class='items-container'>
       <% for (const item of items) { %>
         <%- include('partials/_item', {item: item}) %>
       <% } %>
     </div>
-
-    
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>

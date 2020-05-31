@@ -24,6 +24,76 @@ module.exports = (db) => {
     });
   });
 
+  router.get('/filter', (req, res) => {
+    const { input_string, min_price, max_price, city, order_by } = req.query;
+    let queryParams = [];
+
+    let query = `
+      SELECT * FROM items
+    `;
+    const check = function (array) {
+      return array.length > 0 ? `AND` : `WHERE` ;
+    };
+
+    if (input_string) {
+      const hasLength = check(queryParams);
+      queryParams.push(`%${input_string}%`)
+      query += `
+        ${hasLength} name LIKE $${queryParams.length} 
+      `
+    }
+
+    if (min_price) {
+      const hasLength = check(queryParams);
+      queryParams.push(`${min_price * 100}`)
+      query += `
+        ${hasLength} price > $${queryParams.length} 
+      `
+    }
+
+    if (max_price) {
+      const hasLength = check(queryParams);
+      queryParams.push(`${max_price * 100}`)
+      query += `
+        ${hasLength} price < $${queryParams.length} 
+      `
+    }
+
+    if (city) {
+      const hasLength = check(queryParams);
+      queryParams.push(`%${city}%`)
+      query += `
+        ${hasLength} city LIKE $${queryParams.length} 
+      `
+    }
+
+    switch (order_by) {
+      case 'date':
+        query += `
+        ORDER BY date_listed;
+        `;
+        break;
+      case 'price_asc':
+        query += `
+        ORDER BY price;
+        `;
+        break;
+      case 'price_desc':
+        query += `
+        ORDER BY price DESC;
+        `;
+        break;
+    }
+    console.log(query);
+    console.log(queryParams)
+    db.query(query, queryParams)
+    .then(data => {
+      const items = data.rows;
+      console.log("items", items)
+      res.json(items);
+    });
+  });
+
   router.get('/new', (req, res) => {
     const userId = req.session.user_id;
 
