@@ -46,5 +46,22 @@ module.exports = (db) => {
       });
   });
 
+  router.get('/:id', (req, res) => {
+    const userId = req.session.user_id;
+    const itemId = req.params.id;
+    const query = `
+    SELECT *
+    FROM items
+    WHERE id = $1;
+    `;
+    const queryParams = [itemId];
+
+    db.query(query, queryParams)
+      .then(data => {
+        const item = data.rows[0];
+        res.render('full_item', { userId, item });
+      });
+  });
+
   return router;
 };
