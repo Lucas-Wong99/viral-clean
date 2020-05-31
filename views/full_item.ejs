@@ -18,25 +18,26 @@
     <main class="full-item-container">
 
       <div class="full-item-header">
-        <h2>title</h2>
-        <h2>Price</h2>
+        <h2><%= item.name %></h2>
+        <h2>$<%= item.price / 100 %></h2>
         <div>Star thing</div>
       </div>
 
       <div class="full-item-body">
         <img src="#">
         <p>
-          Description
+          <%= item.description %>
         </p>
       </div>
       <div class="full-item-footer">
-        <span>City</span>
-        <span>Days ago</span>
+        <span><%= item.city %></span>
+        <span>3 days ago</span>
+        <span>Seller: <%= item.seller_name %></span>
         <h2>Contact Seller</h2>
       </div>
       <form action="/api/messages" method="POST" class="message-seller-form">
         <label for="message"></label>
-        <input type="text" name="message" placeholder="Your message...">
+        <textarea placeholder="Description" name="description" id="item__description" cols="30" rows="10"></textarea>
         <button>Send</button>
         <a id="message-form__cancel" href="#">Cancel</a>
       </form>

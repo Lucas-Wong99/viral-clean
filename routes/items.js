@@ -50,17 +50,21 @@ module.exports = (db) => {
     const userId = req.session.user_id;
     const itemId = req.params.id;
     const query = `
-    SELECT *
+    SELECT items.*, users.name as seller_name
     FROM items
-    WHERE id = $1;
+    JOIN users ON items.seller_id = users.id
+    WHERE items.id = $1;
     `;
     const queryParams = [itemId];
 
-    db.query(query, queryParams)
-      .then(data => {
-        const item = data.rows[0];
-        res.render('full_item', { userId, item });
-      });
+    retrieveUserFromDB(db, userId)
+      .then((username) => {
+        db.query(query, queryParams)
+        .then(data => {
+          const item = data.rows[0];
+          res.render('full_item', { userId, username, item });
+        });
+      })
   });
 
   return router;
