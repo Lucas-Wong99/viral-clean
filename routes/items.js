@@ -39,7 +39,7 @@ module.exports = (db) => {
     VALUES ($1, $2, $3, $4, $5, $6);
     `;
     const { name, description, image_photo_url, city, price_for_item } = req.body;
-    const queryParams = [req.session.user_id, name, description, price_for_item, image_photo_url, city];
+    const queryParams = [req.session.user_id, name, description, price_for_item * 100, image_photo_url, city];
     db.query(query, queryParams)
       .then(() => {
         res.redirect('/api/myitems');

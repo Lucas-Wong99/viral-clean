@@ -16,8 +16,11 @@
 
   <body>
     <%- include('partials/_header') %>
-    <% for (const item of items) { %>
-      <%- include('partials/_item', {item: item}) %>
-    <% } %>
+    <div class="items-container">
+      <% for (const item of items) { %>
+        <%- include('partials/_item', {item: item}) %>
+      <% } %>
+    </div>
+    
   </body>
 </html>
