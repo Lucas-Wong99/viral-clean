@@ -24,6 +24,7 @@ module.exports = (db) => {
     });
   });
 
+  //Applies the designated filters through querying the database
   router.get('/filter', (req, res) => {
     const { input_string, min_price, max_price, city, order_by } = req.query;
     let queryParams = [];
@@ -84,16 +85,14 @@ module.exports = (db) => {
         `;
         break;
     }
-    console.log(query);
-    console.log(queryParams)
     db.query(query, queryParams)
     .then(data => {
       const items = data.rows;
-      console.log("items", items)
       res.json(items);
     });
   });
 
+  //Gets the form that creates a new item listing
   router.get('/new', (req, res) => {
     const userId = req.session.user_id;
 
@@ -102,6 +101,7 @@ module.exports = (db) => {
         res.render('new_listing', { username });
       })
   });
+
 
   router.post('/', (req, res) => {
     const query = `
