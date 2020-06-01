@@ -12,14 +12,44 @@ const { retrieveUserFromDB } = require('../lib/helpers');
 module.exports = (db) => {
 
   router.get('/', (req, res) => {
-    let query = `SELECT * FROM items;`
+    // let query = `
+    // SELECT *
+    // FROM items;
+    // `;
 
-    retrieveUserFromDB(db, req.session.user_id)
+    // let query = `
+    // SELECT items.*, user_favourites.user_id
+    // FROM items
+    // FULL OUTER JOIN user_favourites ON user_favourites.item_id = items.id;
+    // `;
+
+
+    // let query = `
+    //   SELECT DISTINCT items.*, user_favourites.user_id
+    //   FROM items
+    //   LEFT JOIN user_favourites ON user_favourites.item_id = items.id
+    //   GROUP BY items.id, user_favourites.user_id;
+    // `;
+
+    let query = `
+    SELECT items.*, user_id
+    FROM items
+    LEFT JOIN
+      (SELECT *
+        FROM user_favourites
+        WHERE user_id = $1) as x
+        ON items.id = x.item_id;
+  `;
+
+    const userId = req.session.user_id;
+    const queryParams = [userId];
+
+    retrieveUserFromDB(db, userId)
     .then((username) => {
-      db.query(query)
+      db.query(query, queryParams)
       .then(data => {
         const items = data.rows;
-        res.render("index", { items, username });
+        res.render("index", { items, username, userId });
       });
     });
   });

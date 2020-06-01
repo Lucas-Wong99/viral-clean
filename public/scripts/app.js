@@ -48,18 +48,29 @@ $(() => {
   });
 
   $('.favourite-button').on('click', (event) => {
-    console.log(event);
-    const data = { item_id: event.target.getAttribute("data-id") };
-    console.log(data);
-    $.ajax({
-      type: "POST",
-      url: "/api/favourites",
-      data: data
-    })
-    .done(confirmed => {
-      $(event.target).addClass("yellow");
-    })
+    if ($(event.target).hasClass('yellow')) {
+        const item_id = event.target.getAttribute("data-id");
+        const data = { item_id };
+        console.log(data);
+        $.ajax({
+          type: "POST",
+          url: `/api/favourites/${item_id}`,
+          data: data
+        })
+        .done(confirmed => {
+          $(event.target).removeClass("yellow");
+        });
+    } else {
+      const data = { item_id: event.target.getAttribute("data-id") };
+      $.ajax({
+        type: "POST",
+        url: "/api/favourites",
+        data: data
+      })
+      .done(confirmed => {
+        $(event.target).addClass("yellow");
+      })
+    }
   });
-
 });
 
