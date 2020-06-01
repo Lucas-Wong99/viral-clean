@@ -49,15 +49,15 @@ $(() => {
 
   $('.favourite-button').on('click', (event) => {
     console.log(event);
-    const data = { item_id: event.target.title };
-
+    const data = { item_id: event.target.getAttribute("data-id") };
+    console.log(data);
     $.ajax({
       type: "POST",
       url: "/api/favourites",
       data: data
     })
     .done(confirmed => {
-      $(".fa-star").addClass("yellow");
+      $(event.target).addClass("yellow");
     })
   });
 

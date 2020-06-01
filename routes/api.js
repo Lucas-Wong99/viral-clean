@@ -74,7 +74,7 @@ module.exports = (db) => {
       res.render('home', { username });
     })
     // res.render('home', { user_id: req.session.user_id })
-  })
+  });
 
   return router;
 };
