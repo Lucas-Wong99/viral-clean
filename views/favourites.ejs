@@ -16,11 +16,11 @@
 
   <body>
     <%- include('partials/_header') %>
-    <div class="items-container">
+    <div class="items-container" id="favourites-container">
       <% for (const item of items) { %>
         <%- include('partials/_item', {item: item}) %>
       <% } %>
     </div>
-    
+
   </body>
 </html>
