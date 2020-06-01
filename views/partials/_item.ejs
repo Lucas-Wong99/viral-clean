@@ -9,9 +9,13 @@
   </div>
   <div class='item-footer'>
     <a class="favourite-button">
+      <% if (item.user_id === null) { %>
       <i class="fas fa-star" data-id="<%= item.id %>"></i>
+      <% } else { %>
+      <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
+      <% } %>
     </a>
-
+    <p>favourited by <%= item.user_id %></p>
   </div>
 
 </div>

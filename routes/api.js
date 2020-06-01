@@ -37,8 +37,10 @@ module.exports = (db) => {
   // Get starred items for the user with this id
   router.get('/favourites', (req, res) => {
     const queryParams = [req.session.user_id];
+
     let query = `
-    SELECT * FROM items
+    SELECT items.*, user_favourites.user_id
+    FROM items
     JOIN user_favourites ON user_favourites.item_id = items.id
     WHERE user_id = $1;
     `;
@@ -47,8 +49,8 @@ module.exports = (db) => {
     .then((username) => {
       db.query(query, queryParams)
       .then(data => {
-        console.log(username);
         const items = data.rows;
+        console.log(items);
         res.render('favourites', { items, username });
       });
     })
@@ -68,6 +70,22 @@ module.exports = (db) => {
       });
   });
 
+  router.post('/favourites/:id', (req, res) => {
+    const queryParams = [req.session.user_id, req.params.id];
+
+    let query = `
+      DELETE
+      FROM user_favourites
+      WHERE user_id = $1
+      AND item_id = $2;
+    `;
+
+    db.query(query, queryParams)
+      .then(() => {
+        res.status(200).send('Item removed from the favourites!');
+      });
+  });
+
   router.get('/home', (req, res) => {
     retrieveUserFromDB(db, req.session.user_id)
     .then((username) => {
@@ -75,6 +93,8 @@ module.exports = (db) => {
     })
     // res.render('home', { user_id: req.session.user_id })
   });
+
+
 
   return router;
 };
