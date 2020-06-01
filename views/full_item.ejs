@@ -20,23 +20,27 @@
       <img src="<%= item.image_url %>">
 
       <div class="full-item-main">
-        <h2><%= item.name %></h2>
+        <div class="item-name">
+          <h2><%= item.name %></h2>
+          <i class="fas fa-star"></i>
+        </div>
         <h2>Price: $<%= item.price / 100 %></h2>
         <div class="full-item-description">
           <p>
             <%= item.description %>
           </p>
         </div>
-       
-        <span>City: <%= item.city %></span>
-        <span>Posted: 3 days ago</span>
+        <div class="location-date-container">
+          <span>City: <%= item.city %></span>
+          <span>Posted: 3 days ago</span>
+        </div>
+        <div class="contact-info-container">
+          <span>Seller: <%= item.seller_name %></span>
+          <h2>Contact Seller</h2>
+        </div>
       </div>
       
-      <div class="full-item-contact">
-        <i class="fas fa-star"></i>
-        <span>Seller: <%= item.seller_name %></span>
-        <h2>Contact Seller</h2>
-      </div>
+      
       <form action="/api/messages" method="POST" class="message-seller-form">
         <label for="message"></label>
         <textarea placeholder="Description" name="description" id="item__description" cols="30" rows="10"></textarea>

@@ -68,5 +68,13 @@ module.exports = (db) => {
       });
   });
 
+  router.get('/home', (req, res) => {
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      res.render('home', { username });
+    })
+    // res.render('home', { user_id: req.session.user_id })
+  })
+
   return router;
 };

@@ -11,7 +11,10 @@
   height: 400px;
   width: 400px;
   padding: 20px;
-  background-color: lightgreen;
+  border: 2px solid darkgrey;
+  border-radius: 10px;
+  background-color:	rgb(236, 230, 230);
+  color: black;
   font-size: 20px;
 
   .item-header {
@@ -26,9 +29,16 @@
     flex-direction: column;
     align-items: center;
 
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
     img {
       max-height: 70%;
       max-width: 70%;
+      border-radius: 10px;
+      border: 2px solid darkgrey;
     }
   }
 

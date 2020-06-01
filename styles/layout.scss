@@ -5,9 +5,10 @@
 @import 'full-item';
 @import 'new-listing-form';
 @import 'search-form.scss';
+@import 'home';
 
 body {
-  padding-top: 120px;
+  padding-top: 100px;
   background-color: #EEE;
 
   font-family: 'Roboto', sans-serif;
