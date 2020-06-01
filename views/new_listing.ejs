@@ -19,36 +19,37 @@
       <h2>Create New Listing</h2>
       <form action="/api/items" method="POST" class="new-item-form">
 
-        <div class="new-item-form__field-wrapper">
-          <label for="new-item-form__name">Name of Item</label>
-          <input type="text" name="name" placeholder="Name of item" id="new-item-form__name">
-        </div>
-
-        <div class="new-item-form__field-wrapper">
-          <label for="new-item-form__description">Description</label>
-          <textarea placeholder="Description" name="description" id="item__description" cols="30" rows="10"></textarea>
-        </div>
-
-        <div class="new-item-form__field-wrapper">
-          <div class="image_and_city_input">
-            <div>
-              <label for="new-item-form__image">Image URL</label>
-              <input placeholder="Image URL" type="text" name="image_photo_url" id="new-item-form__image">
-            </div>
-            <div>
-              <label for="new-item-form__city">City</label>
-              <input placeholder="City" type="text" name="city" id="new-item-form__city" />
-            </div>
+        <div class="price-name-container">
+          <div class="new-item-form__field-wrapper" id="name-input">
+            <label for="new-item-form__name">Name:</label>
+            <input placeholder="Enter The Name of Your Item" type="text" name="name"id="new-item-form__name" >
           </div>
-          <div class="item-price">
-            <label for="new-item-form__cost">Price</label>
-            <input placeholder="Price for item" type="number" name="price_for_item" id="new-item-form__cost">
+          <div class="new-item-form__field-wrapper" id="price-input">
+            <label for="new-item-form__cost">Price:</label>
+            <input placeholder="Price For Item" type="number" name="price_for_item" id="new-item-form__cost">
+          </div>
+        </div>
+
+        <div class="image-city-container">
+          <div class="new-item-form__field-wrapper" id="image-input">
+            <label for="new-item-form__image">Image URL:</label>
+            <input placeholder="Enter Image URL" type="text" name="image_photo_url" id="new-item-form__image">
+          </div>
+          <div class="new-item-form__field-wrapper" id="city-input">
+            <label for="new-item-form__city">City:</label>
+            <input placeholder="Enter The City" type="text" name="city" id="new-item-form__city" />
           </div>
         </div>
 
         <div class="new-item-form__field-wrapper">
-          <button>Create</button>
-          <a id="item-form__cancel" href="#">Cancel</a>
+          <label for="new-item-form__description">Description of item:</label>
+          <textarea placeholder="Enter The Description of Your Item" name="description" id="item__description" cols="30" rows="10"></textarea>
+        </div>
+
+      
+        <div class="new-item-form__field-wrapper">
+          <button>Create Posting</button>
+          <a id="item-form__cancel" href="/">Cancel</a>
         </div>
 
       </form>

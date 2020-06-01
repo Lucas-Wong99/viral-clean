@@ -1,0 +1,92 @@
+@mixin inputStyling {
+  border-radius: 10px;
+  border: 2px solid grey;
+  padding: 10px;
+  background-color: transparent;
+  font-size: 20px;
+  outline: none;
+}
+
+$coolBlack: #333333;
+$twentyPx: 20px;
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $twentyPx * 2;
+  margin: ($twentyPx * 3) auto;
+
+  width: 90%;
+  background-color: lightgrey;
+  border-radius: 10px;
+
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    color: $coolBlack;
+  }
+
+  form {
+    width: 90%;
+
+    .price-name-container {
+      display: flex;
+
+       #name-input {
+        width: 70%;
+       }
+       #price-input {
+         width: 30%;
+       }
+    }
+
+    .image-city-container {
+      display: flex;
+
+      #image-input {
+        width: 50%;
+      }
+      #city-input {
+        width: 50%;
+      }
+    }
+
+    .new-item-form__field-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+
+      label {
+        font-size: 2em;
+      }
+
+      input {
+        height: $twentyPx * 3;
+        @include inputStyling();
+      }
+  
+      textarea {
+        resize: none;
+        @include inputStyling();
+      }
+
+      button {
+        margin: auto;
+        height: $twentyPx * 3;
+        width: 60%;
+        border-radius: $twentyPx;
+        border: 2px solid $coolBlack;
+        color: white; 
+        background-color: $coolBlack;
+        font-size: 30px;
+      }
+      a {
+        margin: 10px auto;
+        text-decoration: none;
+        color: $coolBlack;
+        font-size: $twentyPx;
+      }
+    }
+  }
+}
