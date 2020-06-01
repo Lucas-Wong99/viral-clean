@@ -1,0 +1,7 @@
+<% for (const item of items) { %>
+  <% if (item.seller_id === Number(userId)) { %>
+  <%- include('_own_item', {item: item}); %>
+  <% } else { %>
+   <%- include('_item', {item: item}); %>
+  <% } %>
+<% } %>
