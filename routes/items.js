@@ -109,11 +109,19 @@ module.exports = (db) => {
 
     console.log(query);
     console.log(queryParams);
-    db.query(query, queryParams)
-    .then(data => {
-      const items = data.rows;
-      res.json(items);
-    });
+
+    const userId = req.session.user_id;
+
+    retrieveUserFromDB(db, userId)
+      .then(username => {
+        db.query(query, queryParams)
+        .then(data => {
+          const items = data.rows;
+          console.log(items);
+          res.render("partials/_items_container", { items, username, userId });
+        });
+      })
+
   });
 
   //Gets the form that creates a new item listing
