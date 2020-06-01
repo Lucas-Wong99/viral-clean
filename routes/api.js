@@ -18,7 +18,8 @@ module.exports = (db) => {
     const queryParams = [req.session.user_id];
     let query = `
     SELECT * FROM items
-    WHERE seller_id = $1;
+    WHERE seller_id = $1
+    AND is_deleted = false;
     `;
 
     retrieveUserFromDB(db, req.session.user_id)
@@ -77,12 +78,13 @@ module.exports = (db) => {
       DELETE
       FROM user_favourites
       WHERE user_id = $1
-      AND item_id = $2;
+      AND item_id = $2
+      RETURNING item_id;
     `;
 
     db.query(query, queryParams)
-      .then(() => {
-        res.status(200).send('Item removed from the favourites!');
+      .then((result) => {
+        res.status(200).send(result.rows[0]);
       });
   });
 

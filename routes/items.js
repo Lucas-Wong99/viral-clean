@@ -12,24 +12,6 @@ const { retrieveUserFromDB } = require('../lib/helpers');
 module.exports = (db) => {
 
   router.get('/', (req, res) => {
-    // let query = `
-    // SELECT *
-    // FROM items;
-    // `;
-
-    // let query = `
-    // SELECT items.*, user_favourites.user_id
-    // FROM items
-    // FULL OUTER JOIN user_favourites ON user_favourites.item_id = items.id;
-    // `;
-
-
-    // let query = `
-    //   SELECT DISTINCT items.*, user_favourites.user_id
-    //   FROM items
-    //   LEFT JOIN user_favourites ON user_favourites.item_id = items.id
-    //   GROUP BY items.id, user_favourites.user_id;
-    // `;
 
     let query = `
     SELECT items.*, user_id
@@ -38,7 +20,9 @@ module.exports = (db) => {
       (SELECT *
         FROM user_favourites
         WHERE user_id = $1) as x
-        ON items.id = x.item_id;
+        ON items.id = x.item_id
+    WHERE items.is_deleted = FALSE
+    ORDER BY date_listed;
   `;
 
     const userId = req.session.user_id;
@@ -57,44 +41,51 @@ module.exports = (db) => {
   //Applies the designated filters through querying the database
   router.get('/filter', (req, res) => {
     const { input_string, min_price, max_price, city, order_by } = req.query;
-    let queryParams = [];
+    let queryParams = [ req.session.user_id ];
 
     let query = `
-      SELECT * FROM items
+      SELECT items.*, user_id
+      FROM items
+      LEFT JOIN
+        (SELECT *
+          FROM user_favourites
+          WHERE user_id = $1) as x
+          ON items.id = x.item_id
+      WHERE items.is_deleted = FALSE
     `;
-    const check = function (array) {
-      return array.length > 0 ? `AND` : `WHERE` ;
-    };
+    // const check = function (array) {
+    //   return array.length > 0 ? `AND` : `WHERE` ;
+    // };
 
     if (input_string) {
-      const hasLength = check(queryParams);
+      // const hasLength = check(queryParams);
       queryParams.push(`%${input_string}%`)
       query += `
-        ${hasLength} lower(name) LIKE lower($${queryParams.length})
+        AND lower(items.name) LIKE lower($${queryParams.length})
       `
     }
 
     if (min_price) {
-      const hasLength = check(queryParams);
+      // const hasLength = check(queryParams);
       queryParams.push(`${min_price * 100}`)
       query += `
-        ${hasLength} price > $${queryParams.length}
+        AND items.price > $${queryParams.length}
       `
     }
 
     if (max_price) {
-      const hasLength = check(queryParams);
+      // const hasLength = check(queryParams);
       queryParams.push(`${max_price * 100}`)
       query += `
-        ${hasLength} price < $${queryParams.length}
+        AND items.price < $${queryParams.length}
       `
     }
 
     if (city) {
-      const hasLength = check(queryParams);
+      // const hasLength = check(queryParams);
       queryParams.push(`%${city}%`)
       query += `
-        ${hasLength} lower(city) LIKE lower($${queryParams.length})
+        AND lower(items.city) LIKE lower($${queryParams.length})
       `
     }
 
@@ -115,6 +106,9 @@ module.exports = (db) => {
         `;
         break;
     }
+
+    console.log(query);
+    console.log(queryParams);
     db.query(query, queryParams)
     .then(data => {
       const items = data.rows;
@@ -165,6 +159,36 @@ module.exports = (db) => {
           res.render('full_item', { userId, username, item });
         });
       })
+  });
+
+  router.post('/:id/delete', (req, res) => {
+    const queryParams = [req.params.id];
+    const query = `
+      UPDATE items
+      SET is_deleted = true
+      WHERE id = $1
+      RETURNING id;
+    `;
+
+    db.query(query, queryParams)
+        .then(result => {
+          res.status(200).send(result.rows[0]);
+        });
+  });
+
+  router.post('/:id/sell', (req, res) => {
+    const queryParams = [req.params.id];
+    const query = `
+      UPDATE items
+      SET is_sold = true
+      WHERE id = $1
+      RETURNING id;
+    `;
+
+    db.query(query, queryParams)
+        .then(result => {
+          res.status(200).send(result.rows[0]);
+        });
   });
 
   return router;

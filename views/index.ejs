@@ -18,8 +18,12 @@
 
     <div class='items-container'>
         <% for (const item of items) { %>
+          <% if (item.seller_id === Number(userId)) { %>
+          <%- include('partials/_own_item', {item: item}); %>
+          <% } else { %>
            <%- include('partials/_item', {item: item}); %>
-        <%  } %>
+          <% } %>
+        <% } %>
 
     </div>
 

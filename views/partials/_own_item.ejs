@@ -1,0 +1,25 @@
+<div class='item-container' data-id="<%= item.id %>">
+  <div class='item-header'>
+    <% if (item.is_sold) { %>
+      <span class='item-price'>SOLD</span>
+    <% } else { %>
+      <span class='item-price'>$<%= item.price / 100 %></span>
+    <% } %>
+    <span>3 days ago</span>
+  </div>
+  <div class='item-main'>
+    <img src="<%= item.image_url %>">
+    <a href="/api/items/<%= item.id %>"><h3><%= item.name %></h3></a>
+  </div>
+  <div class='own-item-footer'>
+
+    <a class='sell-button'>
+      <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
+    </a>
+
+    <a class="delete-button">
+      <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
+    </a>
+
+  </div>
+</div>

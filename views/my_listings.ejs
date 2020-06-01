@@ -18,7 +18,8 @@
     <%- include('partials/_header') %>
     <div class='items-container'>
       <% for (const item of items) { %>
-        <%- include('partials/_item', {item: item}) %>
+        <% console.log(item) %>
+        <%- include('partials/_own_item', {item: item}) %>
       <% } %>
     </div>
   </body>

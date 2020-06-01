@@ -1,6 +1,10 @@
-<div class='item-container'>
+<div class='item-container' data-id="<%= item.id%>">
   <div class='item-header'>
+    <% if (item.is_sold) { %>
+      <span>SOLD</span>
+    <% } else { %>
     <span>$<%= item.price / 100 %></span>
+    <% } %>
     <span>3 days ago</span>
   </div>
   <div class='item-main'>
@@ -15,7 +19,6 @@
       <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
       <% } %>
     </a>
-    <p>favourited by <%= item.user_id %></p>
   </div>
 
 </div>
