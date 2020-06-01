@@ -40,7 +40,7 @@ module.exports = (db) => {
       const hasLength = check(queryParams);
       queryParams.push(`%${input_string}%`)
       query += `
-        ${hasLength} name LIKE $${queryParams.length} 
+        ${hasLength} lower(name) LIKE lower($${queryParams.length})
       `
     }
 
@@ -48,7 +48,7 @@ module.exports = (db) => {
       const hasLength = check(queryParams);
       queryParams.push(`${min_price * 100}`)
       query += `
-        ${hasLength} price > $${queryParams.length} 
+        ${hasLength} price > $${queryParams.length}
       `
     }
 
@@ -56,7 +56,7 @@ module.exports = (db) => {
       const hasLength = check(queryParams);
       queryParams.push(`${max_price * 100}`)
       query += `
-        ${hasLength} price < $${queryParams.length} 
+        ${hasLength} price < $${queryParams.length}
       `
     }
 
@@ -64,7 +64,7 @@ module.exports = (db) => {
       const hasLength = check(queryParams);
       queryParams.push(`%${city}%`)
       query += `
-        ${hasLength} city LIKE $${queryParams.length} 
+        ${hasLength} lower(city) LIKE lower($${queryParams.length})
       `
     }
 
