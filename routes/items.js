@@ -152,12 +152,21 @@ module.exports = (db) => {
     const userId = req.session.user_id;
     const itemId = req.params.id;
     const query = `
-    SELECT items.*, users.name as seller_name
+    SELECT items.*, users.name as seller_name, x.user_id
     FROM items
     JOIN users ON items.seller_id = users.id
-    WHERE items.id = $1;
+    LEFT JOIN
+        (SELECT *
+          FROM user_favourites
+          WHERE user_id = $1) as x
+          ON items.id = x.item_id
+    WHERE items.id = $2;
+    
     `;
-    const queryParams = [itemId];
+    
+    //user_favourites ON users.id = user_favourites.user_id
+    // WHERE items.id = $1;
+    const queryParams = [userId, itemId];
 
     retrieveUserFromDB(db, userId)
       .then((username) => {
