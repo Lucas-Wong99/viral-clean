@@ -10,5 +10,8 @@ $(() => {
 
   addEventListenerToSellButtons();
   
+  addEventListenerToFullItemDeleteButton();
+
+  addEventListenerToFullItemSellButton();
 });
 

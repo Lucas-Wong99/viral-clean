@@ -22,7 +22,7 @@ module.exports = (db) => {
         WHERE user_id = $1) as x
         ON items.id = x.item_id
     WHERE items.is_deleted = FALSE
-    ORDER BY date_listed;
+    ORDER BY date_listed DESC;
   `;
 
     const userId = req.session.user_id;
@@ -92,7 +92,7 @@ module.exports = (db) => {
     switch (order_by) {
       case 'date':
         query += `
-        ORDER BY date_listed;
+        ORDER BY date_listed DESC;
         `;
         break;
       case 'price_asc':

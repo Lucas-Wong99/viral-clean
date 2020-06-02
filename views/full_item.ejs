@@ -22,19 +22,30 @@
       <div class="full-item-main">
         <div class="item-name">
           <h2><%= item.name %></h2>
-          
-          <a class="favourite-button">
-            <% if (!item.is_sold) { %>
+
+          <% if (!item.is_sold) { %>
+            <% if (item.seller_id === Number(userId)) { %>
+              <div class="full-item-buttons">
+                <a class='sell-button'>
+                  <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
+                </a>
+                <a class="delete-button">
+                  <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
+                </a>
+              </div>
+            <% } else { %>
+            <a class="favourite-button">
               <% if (item.user_id === null) { %>
                 <i class="fas fa-star" data-id="<%= item.id %>"></i>
-                <% } else { %>
+              <% } else { %>
                 <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
-                <% } %>
-            <% } else { %>
-              <h2 class="item-sold">SOLD</h2>
+              <% } %>
+            </a>
             <% } %>
-            <!-- <i class="fas fa-star" data-id="<%= item.id %>"></i> -->
-          </a>
+          <% } else { %>
+            <h2 class="item-sold">SOLD</h2>
+          <% } %>
+          
         </div>
         <h2>Price: $<%= item.price / 100 %></h2>
         <div class="full-item-description">
@@ -46,15 +57,18 @@
           <span>City: <%= item.city %></span>
           <span>Posted: 3 days ago</span>
         </div>
-        <div class="contact-info-container">
-          <span>Seller: <%= item.seller_name %></span>
-          <h2>Contact Seller</h2>
-        </div>
-        <form action="/api/messages" method="POST" class="message-seller-form">
-          <label for="message"></label>
-          <textarea placeholder="Message to Seller" name="message" id="message-to-seller" cols="30" rows="4" maxlength="250"></textarea>
-          <button>Send</button>
-        </form>
+
+        <% if (item.seller_id !== Number(userId)) { %>
+          <div class="contact-info-container">
+            <span>Seller: <%= item.seller_name %></span>
+            <h2>Contact Seller</h2>
+          </div>
+          <form action="/api/messages" method="POST" class="message-seller-form">
+            <label for="message"></label>
+            <textarea placeholder="Message to Seller" name="message" id="message-to-seller" cols="30" rows="4" maxlength="250"></textarea>
+            <button>Send</button>
+          </form>
+        <% } %>
       </div>
       
     </main>
