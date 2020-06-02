@@ -14,22 +14,16 @@
   <body>
     <%- include('partials/_header') %>
 
-    <%- include('partials/_search_form') %>
-
-    <div class='items-container'>
-        <% for (const item of items) { %>
-          <% if (item.seller_id === Number(userId)) { %>
-          <%- include('partials/_own_item', {item: item}); %>
-          <% } else { %>
-           <%- include('partials/_item', {item: item}); %>
-          <% } %>
-        <% } %>
-
+    <div class='messages-container'>
+      <% for (const ___ of  ___) { %>
+        <%- include('partials/_message') %>
+      <% } %>
     </div>
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/helpers.js"></script>
     <script src="https://kit.fontawesome.com/cd7e20452a.js"></script>
+
   </body>
 </html>

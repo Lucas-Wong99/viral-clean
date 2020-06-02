@@ -1,0 +1,9 @@
+<div class="message-container">
+  <div class="message-header">
+    <h2>FROM <%= messages.buyer_id %></h2>
+  </div>
+  <div class="message-body">
+    <p> <%= messages.message_text %></p>
+    <span> <%= moment(messages.sent_at).fromNow() %></span>
+  </div>
+</div>
