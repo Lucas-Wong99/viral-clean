@@ -1,23 +1,62 @@
-  .messages-thread-container {
+@mixin containerBorder {
+  border-radius: 10px;
+  border: 2px solid darkgrey;
+}
+
+.messages-thread-container {
   display: flex;
   flex-direction: column;
 
-  width: 80%;
-  margin: 0 auto;
+  width: 60%;
+  margin: 40px auto;
+  padding: 20px;
+  @include containerBorder();
 
-  background-color: mediumaquamarine;
+  background-color: rgb(236, 230, 230);
+
+  h3 {
+    margin-top: 0;
+    text-align: center;
+  }
 
   form {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+
+    textarea {
+      resize: none;
+      outline: none;
+      padding: 10px;
+      width: 60%;
+      margin-bottom: 10px;
+      @include containerBorder();
+    }
+
+    button {
+      height: 60%;
+      padding: 10px;
+      margin-left: 10px;
+      @include containerBorder();
+    }
+    
   }
 
   .thread-own-message {
     align-self: flex-end;
+    max-width: 40%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: lightblue;
+    @include containerBorder();
   }
 
   .thread-message {
     align-self: flex-start;
+    max-width: 40%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: lightgrey;
+    @include containerBorder();
   }
 }

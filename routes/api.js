@@ -39,7 +39,9 @@ module.exports = (db) => {
     const queryParams = [req.session.user_id];
 
     const query = `
-    SELECT DISTINCT ON(item_id)
+    SELECT *
+    FROM (
+      SELECT DISTINCT ON(item_id)
       messages.id as message_id,
       message_text,
       item_id,
@@ -52,7 +54,9 @@ module.exports = (db) => {
     ON messages.item_id = items.id
     JOIN users
     ON users.id = messages.receiver_id
-    WHERE sender_id = $1;
+    WHERE sender_id = $1
+    ) as x
+    ORDER BY sent_at DESC;
     `;
 
     retrieveUserFromDB(db, req.session.user_id)

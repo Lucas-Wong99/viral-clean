@@ -15,14 +15,23 @@
     <%- include('partials/_header') %>
 
     <div class='messages-thread-container'>
-      <form action="/api/messages" method="POST" class="message-seller-form">
+      <% let buyer_seller = ''; %>
+      <% if (item_seller_id === Number(userId)) { %>
+        <h3>Selling: <%= item_name %></h3>
+        <% buyer_seller = 'Buyer'; %>
+     <% } else { %>
+      <h3>Buying: <%= item_name %></h3>
+        <% buyer_seller = 'Seller'; %>
+     <% } %>
+      <form action="/api/messages" method="POST" class="message-form" item-id="<% item_id %>">
         <label for="message"></label>
-        <textarea placeholder="Message to Seller" name="message" id="message-to-seller" cols="30" rows="4" maxlength="250"></textarea>
-        <button>Send</button>
+        <textarea placeholder="Message to <%= buyer_seller %>" name="message" id="new-message" cols="30" rows="4" maxlength="250"></textarea>
+        <button type="submit">Send</button>
       </form>
-      <% for (const message of messages) { %>
-        <%- include('partials/_message_inside_thread', { message, userId }) %>
-      <% } %>
+      
+    <% for (const message of messages) { %>
+      <%- include('partials/_message_inside_thread', { message, userId }) %>
+    <% } %>
     </div>
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>

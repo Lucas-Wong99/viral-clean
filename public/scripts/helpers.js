@@ -119,7 +119,7 @@ const addEventListenerToFullItemDeleteButton = () => {
 const addEventListenerToFullItemSellButton = () => {
   $('.full-item-buttons > .sell-button').on('click', (event) => {
     const item_id = event.target.getAttribute("data-id");
-      const data = { item_id };
+    const data = { item_id };
       $.ajax({
         type: "POST",
         url: `/api/items/${item_id}/sell`,
@@ -131,18 +131,30 @@ const addEventListenerToFullItemSellButton = () => {
     });
 };
 
-// const addEventListenerToViewDialogButton = () => {
-//   $().on('click', (event) => {
-//     const item_id = event.target.getAttribute("data-id");
-//       const data = { item_id };
-//       $.ajax({
-//         type: "GET",
-//         url: `/api/items/${item_id}/messages`,
-//         data: data
-//       })
-//       .done(result => {
-//         window.location.href = /api/items/;
-//       });
-//     });
-// }
+const addEventListenerToSubmitMessage = () => {
+  $(".message-seller-form").on('submit', function(event) {
+    event.preventDefault();
+    const item_id = event.target.getAttribute("item-id");
+
+    const obj = {
+      message: $('#message-to-seller').val(),
+      item_id: item_id,
+      receiver_id: event.target.getAttribute("receiver-id")
+    };
+    const data = JSON.stringify(obj);
+    // const formData = $(this).serialize();
+      // const data = { formData, item_id, receiver_id };
+      $.ajax({
+        type: "POST",
+        url: `/api/items/${item_id}/messages`,
+        data: { 
+          message: $('#message-to-seller').val(),
+          item_id: item_id,
+          receiver_id: event.target.getAttribute("receiver-id")}
+      })
+      .done(result => {
+        console.log(result);
+      });
+    });
+}
 

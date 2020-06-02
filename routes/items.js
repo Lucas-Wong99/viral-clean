@@ -211,10 +211,19 @@ module.exports = (db) => {
   router.get('/:id/messages', (req, res) => {
     const queryParams = [req.params.id];
     const query = `
-    SELECT *
+    SELECT *, item_id, items.name AS item_name, items.seller_id as item_seller_id
     FROM messages
+    JOIN items
+    ON item_id = items.id
     WHERE item_id = $1;
     `;
+
+    // `SELECT *, item_id, items.name AS item_name, items.seller_id as item_seller_id
+    // FROM messages
+    // JOIN items
+    // ON item_id = items.id
+    // WHERE item_id = 4;
+    // `;
 
     const userId = req.session.user_id;
 
@@ -223,10 +232,38 @@ module.exports = (db) => {
         db.query(query, queryParams)
         .then(data => {
           const messages = data.rows;
-          res.render('message_thread', { messages, username, userId });
+          const item_name = data.rows[0].item_name;
+          const item_seller_id = data.rows[0].item_seller_id;
+          const item_id = data.rows[0].item_id;
+          res.render('message_thread', { messages, username, userId, item_name, item_seller_id, item_id });
         });
       })
 
+  });
+
+  router.post('/:id/messages', (req, res) => {
+    
+    const senderId = req.session.user_id;
+
+    console.log(req.body);
+
+    const receiverId = req.body.receiver_id;
+    const message = req.body.message;
+    
+    const itemId = req.params.id;
+
+    const queryParams = [senderId, receiverId, itemId, message];
+    const query = `
+    INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
+    `;
+
+    db.query(query, queryParams)
+      .then(data => {
+        console.log('SUCCESS!')
+        res.status(200).end();
+      });
   });
 
   return router;
