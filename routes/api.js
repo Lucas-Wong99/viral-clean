@@ -35,6 +35,18 @@ module.exports = (db) => {
 
   });
 
+  router.get('/messages', (req, res) => {
+    const queryParams = [req.session.user_id];
+    const query = `
+    SELECT *
+    FROM messages
+    WHERE user_1_id = 2
+    OR user_2_id = 2
+    ORDER BY sent_at ASC
+    LIMIT 5;
+    `
+  });
+
   // Get starred items for the user with this id
   router.get('/favourites', (req, res) => {
     const queryParams = [req.session.user_id];
