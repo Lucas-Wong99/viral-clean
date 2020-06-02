@@ -1,11 +1,7 @@
 <div class='item-container' data-id="<%= item.id%>">
   <div class='item-header'>
-    <% if (item.is_sold) { %>
-      <span>SOLD</span>
-    <% } else { %>
     <span>$<%= item.price / 100 %></span>
-    <% } %>
-    <span>3 days ago</span>
+    <span><%= moment(item.date_listed).fromNow() %></span>
   </div>
   <div class='item-main'>
     <img src="<%= item.image_url %>">
@@ -13,11 +9,17 @@
   </div>
   <div class='item-footer'>
     <a class="favourite-button">
-      <% if (item.user_id === null) { %>
-      <i class="fas fa-star" data-id="<%= item.id %>"></i>
+    
+      <% if (!item.is_sold) { %>
+        <% if (item.user_id === null) { %>
+          <i class="fas fa-star" data-id="<%= item.id %>"></i>
+          <% } else { %>
+          <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
+          <% } %>
       <% } else { %>
-      <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
+        <h2 class="item-sold">SOLD</h2>
       <% } %>
+
     </a>
   </div>
 

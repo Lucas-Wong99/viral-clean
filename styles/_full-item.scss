@@ -3,6 +3,21 @@
   border: 2px solid darkgrey;
 }
 
+@mixin tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
 .full-item-container {
   margin: 50px auto;
   padding: 40px;
@@ -20,37 +35,120 @@
     padding: 0 20px;
     width: 50%;
 
-    @include containerBorder();
+    // @include containerBorder();
     
     .item-name {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      .fa-star {
+        font-size: 30px;
+      }
+      
+      .sell-button {
+        position: relative;
+        display: inline-block;
+
+        .fa-dollar-sign {
+          font-size: 30px;
+          margin-right: 20px;
+          color: darkgreen;
+          
+        }
+        span {
+          @include tooltip();
+        }
+      }
+
+      .sell-button:hover {
+        cursor: pointer;
+        span {
+          visibility: visible;
+        }
+      }
+
+      .delete-button {
+        position: relative;
+        display: inline-block;
+        .fa-trash-alt {
+          font-size: 28px;
+          color: red;
+        }
+        span {
+          @include tooltip(); 
+        }
+      }
+
+      .delete-button:hover {
+        cursor: pointer;
+        span {
+          visibility: visible;
+        }
+      }
+  
+      .item-sold {
+        color: red;
+        font-size: 34px;
+      }
     }
 
     h2 {
+      max-width: 90%;
       font-size: 30px;
+      margin: 15px 0 0 0;
+    }
+  }
+  
+
+  .full-item-description {
+    height: 75%;
+    width: 100%;
+
+    p {
+      font-size: 18px;;
     }
   }
 
-  .full-item-description {
-    height: 80%;
-    width: 100%;
+  .location-date-container {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-size: 24px;
+    }
   }
 
   img {
-    max-height: 80%;
-    max-width: 80%;
+    height: 80%;
+    width: 40%;
     @include containerBorder();
   }
 
   .full-item-contact {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;  
+    justify-content: space-around;
   }
 
   .message-seller-form {
-    display: none;
+    display:  block;
+  
+
+    textarea {
+      resize: none;
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      @include containerBorder();
+    }
+
+    button {
+      padding: 14px 50px;
+      margin-top: 15px;
+      
+      @include containerBorder();
+      // height: 30%;
+      // width: 40%;
+    }
   }
 }

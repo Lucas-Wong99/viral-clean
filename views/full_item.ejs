@@ -22,8 +22,34 @@
       <div class="full-item-main">
         <div class="item-name">
           <h2><%= item.name %></h2>
-          <i class="fas fa-star"></i>
+
+          <% if (!item.is_sold) { %>
+            <% if (item.seller_id === Number(userId)) { %>
+              <div class="full-item-buttons">
+                <a class='sell-button'>
+                  <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
+                  <span>Mark this item as sold</span>
+                </a>
+                <a class="delete-button">
+                  <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
+                  <span>Delete this item</span>
+                </a>
+              </div>
+            <% } else { %>
+            <a class="favourite-button">
+              <% if (item.user_id === null) { %>
+                <i class="fas fa-star" data-id="<%= item.id %>"></i>
+              <% } else { %>
+                <i class="fas fa-star yellow" data-id="<%= item.id %>"></i>
+              <% } %>
+            </a>
+            <% } %>
+          <% } else { %>
+            <h2 class="item-sold">SOLD</h2>
+          <% } %>
+          
         </div>
+
         <h2>Price: $<%= item.price / 100 %></h2>
         <div class="full-item-description">
           <p>
@@ -33,24 +59,26 @@
         <div class="location-date-container">
           <span>City: <%= item.city %></span>
           <span>Posted: 3 days ago</span>
-        </div>
-        <div class="contact-info-container">
           <span>Seller: <%= item.seller_name %></span>
-          <h2>Contact Seller</h2>
         </div>
+
+        <% if (item.seller_id !== Number(userId)) { %>
+          <div class="contact-info-container">
+            <h2>Contact Seller</h2>
+          </div>
+          <form action="/api/messages" method="POST" class="message-seller-form">
+            <label for="message"></label>
+            <textarea placeholder="Message to Seller" name="message" id="message-to-seller" cols="30" rows="4" maxlength="250"></textarea>
+            <button>Send</button>
+          </form>
+        <% } %>
       </div>
       
-      
-      <form action="/api/messages" method="POST" class="message-seller-form">
-        <label for="message"></label>
-        <textarea placeholder="Description" name="description" id="item__description" cols="30" rows="10"></textarea>
-        <button>Send</button>
-        <a id="message-form__cancel" href="#">Cancel</a>
-      </form>
     </main>
     
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/helpers.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script src="https://kit.fontawesome.com/cd7e20452a.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script> -->

@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const cookieSession = require('cookie-session');
 const morgan     = require('morgan');
+const moment     = require("moment");
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -21,6 +22,9 @@ app.use(cookieSession({
   name: 'session',
   keys: ["secret", "rotation"]
 }));
+
+//Makes moment.js available globally in EJS files
+app.locals.moment = moment;
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
