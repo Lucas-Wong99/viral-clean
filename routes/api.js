@@ -37,14 +37,34 @@ module.exports = (db) => {
 
   router.get('/messages', (req, res) => {
     const queryParams = [req.session.user_id];
+
     const query = `
-    SELECT *
+    SELECT DISTINCT ON(item_id)
+      messages.id as message_id,
+      message_text,
+      item_id,
+      items.name as item_name,
+      items.image_url as item_image_url,
+      sent_at,
+      users.name as receiver
     FROM messages
-    WHERE user_1_id = 2
-    OR user_2_id = 2
-    ORDER BY sent_at ASC
-    LIMIT 5;
-    `
+    JOIN items
+    ON messages.item_id = items.id
+    JOIN users
+    ON users.id = messages.receiver_id
+    WHERE sender_id = $1;
+    `;
+
+    retrieveUserFromDB(db, req.session.user_id)
+    .then((username) => {
+      db.query(query, queryParams)
+      .then((results) => {
+        // console.log(results.rows);
+        const messages = results.rows;
+        res.render('all_messages', { messages, username });
+    });
+    })
+
   });
 
   // Get starred items for the user with this id

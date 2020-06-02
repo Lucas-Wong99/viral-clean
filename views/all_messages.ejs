@@ -15,8 +15,8 @@
     <%- include('partials/_header') %>
 
     <div class='messages-container'>
-      <% for (const ___ of  ___) { %>
-        <%- include('partials/_message') %>
+      <% for (const message of messages) { %>
+        <%- include('partials/_message', { message }) %>
       <% } %>
     </div>
 

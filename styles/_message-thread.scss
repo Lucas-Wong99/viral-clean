@@ -1,0 +1,23 @@
+  .messages-thread-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+  margin: 0 auto;
+
+  background-color: mediumaquamarine;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .thread-own-message {
+    align-self: flex-end;
+  }
+
+  .thread-message {
+    align-self: flex-start;
+  }
+}

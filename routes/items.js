@@ -161,9 +161,9 @@ module.exports = (db) => {
           WHERE user_id = $1) as x
           ON items.id = x.item_id
     WHERE items.id = $2;
-    
+
     `;
-    
+
     //user_favourites ON users.id = user_favourites.user_id
     // WHERE items.id = $1;
     const queryParams = [userId, itemId];
@@ -206,6 +206,27 @@ module.exports = (db) => {
         .then(result => {
           res.status(200).send(result.rows[0]);
         });
+  });
+
+  router.get('/:id/messages', (req, res) => {
+    const queryParams = [req.params.id];
+    const query = `
+    SELECT *
+    FROM messages
+    WHERE item_id = $1;
+    `;
+
+    const userId = req.session.user_id;
+
+    retrieveUserFromDB(db, userId)
+      .then((username) => {
+        db.query(query, queryParams)
+        .then(data => {
+          const messages = data.rows;
+          res.render('message_thread', { messages, username, userId });
+        });
+      })
+
   });
 
   return router;

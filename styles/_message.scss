@@ -1,0 +1,53 @@
+@mixin containerBorder {
+  border-radius: 10px;
+  border: 2px solid darkgrey;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 20px auto;
+  padding: 30px;
+  @include containerBorder();
+  background-color: rgb(236, 230, 230);
+
+  .message-body {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px;
+
+    .message-text {
+      flex-grow: 14;
+      font-size: 18px;
+    }
+
+    .message-image {
+      flex-grow: 2;
+
+      img {
+        max-height: 100px;
+        @include containerBorder();
+      }
+    }
+
+    .message-info {
+      flex-grow: 1;
+    }
+
+  }
+
+  .message-button-container {
+    align-self: flex-end;
+
+    .message-dialogue-button {
+      @include containerBorder();
+      text-decoration: none;
+      padding: 10px;
+      outline: none;
+    }
+
+
+  }
+}

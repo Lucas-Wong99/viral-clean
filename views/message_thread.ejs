@@ -14,9 +14,14 @@
   <body>
     <%- include('partials/_header') %>
 
-    <div class='messages-container'>
-      <% for (const ___ of  ___) { %>
-        <%- include('partials/_message') %>
+    <div class='messages-thread-container'>
+      <form action="/api/messages" method="POST" class="message-seller-form">
+        <label for="message"></label>
+        <textarea placeholder="Message to Seller" name="message" id="message-to-seller" cols="30" rows="4" maxlength="250"></textarea>
+        <button>Send</button>
+      </form>
+      <% for (const message of messages) { %>
+        <%- include('partials/_message_inside_thread', { message, userId }) %>
       <% } %>
     </div>
 

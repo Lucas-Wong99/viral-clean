@@ -1,9 +1,21 @@
 <div class="message-container">
-  <div class="message-header">
-    <h2>FROM <%= messages.buyer_id %></h2>
-  </div>
+  <h2>RE: <%= message.item_name %></h2>
+
   <div class="message-body">
-    <p> <%= messages.message_text %></p>
-    <span> <%= moment(messages.sent_at).fromNow() %></span>
+    <div class="message-image">
+      <img src=" <%= message.item_image_url %>">
+    </div>
+
+    <div class="message-text">
+      <p> <%= message.message_text %></p>
+    </div>
+    <div class="message-info">
+      <p>FROM: <%= message.receiver %></p>
+      <span> <%= moment(message.sent_at).fromNow() %></span>
+    </div>
+
+  </div>
+  <div class="message-button-container">
+    <a href="/api/items/<%= message.item_id %>/messages" class="message-dialogue-button">View Dialog</a>
   </div>
 </div>

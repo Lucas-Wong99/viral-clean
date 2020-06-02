@@ -1,0 +1,11 @@
+
+  <% if (message.sender_id === Number(userId)) { %>
+    <div class="thread-own-message">
+      <span><%= message.message_text %></span>
+    </div>
+  <% } else { %>
+    <div class="thread-message">
+      <span><%= message.message_text %></span>
+    </div>
+  <% } %>
+

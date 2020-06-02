@@ -116,18 +116,33 @@ const addEventListenerToFullItemDeleteButton = () => {
 };
 
 
-  const addEventListenerToFullItemSellButton = () => {
-    $('.full-item-buttons > .sell-button').on('click', (event) => {
-      const item_id = event.target.getAttribute("data-id");
-        const data = { item_id };
-        $.ajax({
-          type: "POST",
-          url: `/api/items/${item_id}/sell`,
-          data: data
-        })
-        .done(result => {
-          window.location.href = "/api/items";
-        });
+const addEventListenerToFullItemSellButton = () => {
+  $('.full-item-buttons > .sell-button').on('click', (event) => {
+    const item_id = event.target.getAttribute("data-id");
+      const data = { item_id };
+      $.ajax({
+        type: "POST",
+        url: `/api/items/${item_id}/sell`,
+        data: data
+      })
+      .done(result => {
+        window.location.href = "/api/items";
       });
-  };
+    });
+};
+
+// const addEventListenerToViewDialogButton = () => {
+//   $().on('click', (event) => {
+//     const item_id = event.target.getAttribute("data-id");
+//       const data = { item_id };
+//       $.ajax({
+//         type: "GET",
+//         url: `/api/items/${item_id}/messages`,
+//         data: data
+//       })
+//       .done(result => {
+//         window.location.href = /api/items/;
+//       });
+//     });
+// }
 
