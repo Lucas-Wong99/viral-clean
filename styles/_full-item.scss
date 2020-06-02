@@ -20,7 +20,7 @@
     padding: 0 20px;
     width: 50%;
 
-    @include containerBorder();
+    // @include containerBorder();
     
     .item-name {
       display: flex;
@@ -28,29 +28,60 @@
       align-items: center;
     }
 
+    .fa-star {
+      font-size: 30px;
+    }
+
     h2 {
       font-size: 30px;
+      margin: 15px 0 0 0;
     }
   }
 
   .full-item-description {
-    height: 80%;
+    height: 75%;
     width: 100%;
+
+    p {
+      font-size: 18px;;
+    }
+  }
+
+  .location-date-container {
+    display: flex;
+    flex-direction: column;
   }
 
   img {
-    max-height: 80%;
-    max-width: 80%;
+    height: 80%;
+    width: 40%;
     @include containerBorder();
   }
 
   .full-item-contact {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;  
+    justify-content: space-around
   }
 
   .message-seller-form {
-    display: none;
+    display:  block;
+  
+
+    textarea {
+      resize: none;
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      @include containerBorder();
+    }
+
+    button {
+      padding: 14px 50px;
+      margin-top: 15px;
+      
+      @include containerBorder();
+      // height: 30%;
+      // width: 40%;
+    }
   }
 }

@@ -54,7 +54,9 @@ const addEventListenerToSellButtons = () => {
     })
     .done(result => {
       console.log(result);
-      $(`.items-container > *[data-id="${result.id}"] > .item-header > .item-price`).text('SOLD');
+      //$(`.items-container > *[data-id="${result.id}"] > .item-header > .item-price`).text('SOLD');
+      $(`.items-container > *[data-id="${result.id}"] > .own-item-footer > *`).remove();
+      $(`.items-container > *[data-id="${result.id}"] > .own-item-footer`).append("<h2 class='item-sold'>SOLD</h2>");
     });
   });
 }
@@ -96,4 +98,5 @@ const addEventListenerToSearchFormOnChange = () => {
         addEventListenerToDeleteButtons();
       })
   });
+
 };

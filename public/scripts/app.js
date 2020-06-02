@@ -9,6 +9,6 @@ $(() => {
   addEventListenerToDeleteButtons();
 
   addEventListenerToSellButtons();
-
+  
 });
 

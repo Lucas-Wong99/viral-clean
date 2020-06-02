@@ -1,10 +1,8 @@
 <div class='item-container' data-id="<%= item.id %>">
   <div class='item-header'>
-    <% if (item.is_sold) { %>
-      <span class='item-price'>SOLD</span>
-    <% } else { %>
-      <span class='item-price'>$<%= item.price / 100 %></span>
-    <% } %>
+
+    <span class='item-price'>$<%= item.price / 100 %></span>
+
     <span>3 days ago</span>
   </div>
   <div class='item-main'>
@@ -13,13 +11,18 @@
   </div>
   <div class='own-item-footer'>
 
-    <a class='sell-button'>
-      <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
-    </a>
+    
 
-    <a class="delete-button">
-      <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
-    </a>
+    <% if (!item.is_sold) { %>
+      <a class='sell-button'>
+        <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
+      </a>
 
+      <a class="delete-button">
+        <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
+      </a>
+    <% } else { %>
+      <h2 class="item-sold">SOLD</h2>
+    <% } %>
   </div>
 </div>

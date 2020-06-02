@@ -2,4 +2,9 @@
   display: flex;
   justify-content: space-around;
 
+  .item-sold {
+    margin: 0;
+    color: red;
+    font-size: 34px;
+  }
 }
