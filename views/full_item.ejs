@@ -56,11 +56,11 @@
         <div class="location-date-container">
           <span>City: <%= item.city %></span>
           <span>Posted: 3 days ago</span>
+          <span>Seller: <%= item.seller_name %></span>
         </div>
 
         <% if (item.seller_id !== Number(userId)) { %>
           <div class="contact-info-container">
-            <span>Seller: <%= item.seller_name %></span>
             <h2>Contact Seller</h2>
           </div>
           <form action="/api/messages" method="POST" class="message-seller-form">

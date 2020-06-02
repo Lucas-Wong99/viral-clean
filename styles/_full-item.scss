@@ -34,10 +34,21 @@
 
     .fa-dollar-sign {
       font-size: 30px;
+      margin-right: 20px;
+      color: darkgreen
+    }
+
+    .fa-dollar-sign:hover {
+      color: rgb(4, 70, 4);
     }
     
     .fa-trash-alt {
       font-size: 28px;
+      color: red;
+    }
+
+    .fa-trash-alt:hover {
+      
     }
 
     .item-sold {
@@ -46,6 +57,7 @@
     }
 
     h2 {
+      max-width: 90%;
       font-size: 30px;
       margin: 15px 0 0 0;
     }
@@ -63,6 +75,10 @@
   .location-date-container {
     display: flex;
     flex-direction: column;
+
+    span {
+      font-size: 24px;
+    }
   }
 
   img {
@@ -73,7 +89,7 @@
 
   .full-item-contact {
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
   }
 
   .message-seller-form {
