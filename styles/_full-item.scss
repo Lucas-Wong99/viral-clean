@@ -3,6 +3,21 @@
   border: 2px solid darkgrey;
 }
 
+@mixin tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
 .full-item-container {
   margin: 50px auto;
   padding: 40px;
@@ -26,34 +41,56 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
 
-    .fa-star {
-      font-size: 30px;
-    }
-
-    .fa-dollar-sign {
-      font-size: 30px;
-      margin-right: 20px;
-      color: darkgreen
-    }
-
-    .fa-dollar-sign:hover {
-      color: rgb(4, 70, 4);
-    }
-    
-    .fa-trash-alt {
-      font-size: 28px;
-      color: red;
-    }
-
-    .fa-trash-alt:hover {
+      .fa-star {
+        font-size: 30px;
+      }
       
-    }
+      .sell-button {
+        position: relative;
+        display: inline-block;
 
-    .item-sold {
-      color: red;
-      font-size: 34px;
+        .fa-dollar-sign {
+          font-size: 30px;
+          margin-right: 20px;
+          color: darkgreen;
+          
+        }
+        span {
+          @include tooltip();
+        }
+      }
+
+      .sell-button:hover {
+        cursor: pointer;
+        span {
+          visibility: visible;
+        }
+      }
+
+      .delete-button {
+        position: relative;
+        display: inline-block;
+        .fa-trash-alt {
+          font-size: 28px;
+          color: red;
+        }
+        span {
+          @include tooltip(); 
+        }
+      }
+
+      .delete-button:hover {
+        cursor: pointer;
+        span {
+          visibility: visible;
+        }
+      }
+  
+      .item-sold {
+        color: red;
+        font-size: 34px;
+      }
     }
 
     h2 {
@@ -62,6 +99,7 @@
       margin: 15px 0 0 0;
     }
   }
+  
 
   .full-item-description {
     height: 75%;

@@ -28,9 +28,11 @@
               <div class="full-item-buttons">
                 <a class='sell-button'>
                   <i class="fas fa-dollar-sign" data-id="<%= item.id %>"></i>
+                  <span>Mark this item as sold</span>
                 </a>
                 <a class="delete-button">
                   <i class="fas fa-trash-alt" data-id="<%= item.id %>"></i>
+                  <span>Delete this item</span>
                 </a>
               </div>
             <% } else { %>
@@ -47,6 +49,7 @@
           <% } %>
           
         </div>
+
         <h2>Price: $<%= item.price / 100 %></h2>
         <div class="full-item-description">
           <p>
