@@ -251,7 +251,7 @@ module.exports = (db) => {
     const message = req.body.message;
     
     const itemId = req.params.id;
-
+    
     const queryParams = [senderId, receiverId, itemId, message];
     const query = `
     INSERT INTO messages (sender_id, receiver_id, item_id, message_text)

@@ -48,6 +48,7 @@ module.exports = (db) => {
       items.name as item_name,
       items.image_url as item_image_url,
       sent_at,
+      receiver_id,
       users.name as receiver
     FROM messages
     JOIN items
@@ -55,17 +56,24 @@ module.exports = (db) => {
     JOIN users
     ON users.id = messages.receiver_id
     WHERE sender_id = $1
-    ) as x
+    OR receiver_id = $1
+    ) as y
     ORDER BY sent_at DESC;
     `;
 
+    // FROM (
+    //   SELECT *
+    //   FROM messages
+    //   ORDER BY sent_at DESC
+    // ) as x
+    const userId = req.session.user_id;
     retrieveUserFromDB(db, req.session.user_id)
     .then((username) => {
       db.query(query, queryParams)
       .then((results) => {
         // console.log(results.rows);
         const messages = results.rows;
-        res.render('all_messages', { messages, username });
+        res.render('all_messages', { messages, username, userId });
     });
     })
 

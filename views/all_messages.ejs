@@ -16,7 +16,7 @@
 
     <div class='messages-container'>
       <% for (const message of messages) { %>
-        <%- include('partials/_message', { message }) %>
+        <%- include('partials/_message', { message, userId }) %>
       <% } %>
     </div>
 

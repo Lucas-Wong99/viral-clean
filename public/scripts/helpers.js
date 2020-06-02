@@ -141,9 +141,7 @@ const addEventListenerToSubmitMessage = () => {
       item_id: item_id,
       receiver_id: event.target.getAttribute("receiver-id")
     };
-    const data = JSON.stringify(obj);
-    // const formData = $(this).serialize();
-      // const data = { formData, item_id, receiver_id };
+  
       $.ajax({
         type: "POST",
         url: `/api/items/${item_id}/messages`,
