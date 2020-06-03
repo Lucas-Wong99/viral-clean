@@ -37,35 +37,42 @@ module.exports = (db) => {
 
   // Retrieve all messages for the current user
   router.get('/messages', (req, res) => {
-    // const query = `
-    // SELECT *
-    // FROM (
-    //   SELECT DISTINCT ON(item_id)
-    //   x.id as message_id,
-    //   message_text,
-    //   item_id,
-    //   items.name as item_name,
-    //   items.image_url as item_image_url,
-    //   sent_at,
-    //   receiver_id,
-    //   users.name as receiver
-    // FROM  (
-    //     SELECT *
-    //     FROM messages
-    //     ORDER BY sent_at DESC
-    //   ) as x
-    // JOIN items
-    // ON x.item_id = items.id
-    // JOIN users
-    // ON users.id = x.receiver_id
-    // WHERE sender_id = $1
-    // OR receiver_id = $1
-    // ) as y
-    // ORDER BY sent_at DESC;
-    // `;
 
     const query = `
-    SELECT y.*, items.name as item_name, items.image_url as item_image_url, users.name as receiver
+    SELECT 
+      y.*,
+      items.name as item_name,
+      items.image_url as item_image_url,
+      u1.name as receiver,
+      u2.name as sender
+    FROM (
+      SELECT DISTINCT ON (item_id)
+        x.id as message_id,
+        x.message_text,
+        x.item_id,
+        x.sent_at,
+        x.receiver_id,
+        x.sender_id
+      FROM (
+        SELECT *
+        FROM messages
+        ORDER BY sent_at DESC
+      ) as x
+      WHERE sender_id = $1
+      OR receiver_id = $1
+    ) as y
+    JOIN items
+    ON y.item_id = items.id
+    JOIN users as u1
+    ON u1.id = y.receiver_id
+    JOIN users as u2
+    ON u2.id = y.sender_id
+    ORDER BY sent_at DESC;
+    `;
+
+    /*
+
+SELECT y.*, items.name as item_name, items.image_url as item_image_url, users.name as receiver
     FROM (
       SELECT DISTINCT ON (item_id)
         x.id as message_id,
@@ -86,47 +93,6 @@ module.exports = (db) => {
     JOIN users
     ON users.id = y.receiver_id
     ORDER BY sent_at DESC;
-    `;
-
-    /*
-
-
-
-
-        items.name as item_name,
-        items.image_url as item_image_url,
-        users.name as receiver
-
-  JOIN items
-      ON x.item_id = items.id
-      JOIN users
-      ON users.id = x.receiver_id
-
-    SELECT *
-    FROM (
-      SELECT
-      x.id as message_id,
-      message_text,
-      item_id,
-      items.name as item_name,
-      sent_at,
-      receiver_id,
-      users.name as receiver
-    FROM (
-      SELECT *
-      FROM messages
-      ORDER BY sent_at DESC
-    ) as x
-    JOIN items
-    ON x.item_id = items.id
-    JOIN users
-    ON users.id = x.receiver_id
-    WHERE sender_id = 1
-    OR receiver_id = 1
-    ) as y
-    ORDER BY sent_at DESC;
-    `;
-
 
 
     */
