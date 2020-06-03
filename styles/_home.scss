@@ -12,12 +12,13 @@ section {
   .layer {
     @include flexColumnCenter();
 
-    border-radius: 10%;
+    border-radius: 40px;
 
-    background-color: rgba(45, 121, 118, 0.5  );
+    background-color: rgba(45, 121, 118, 0.6  );
     margin: auto;
     width: 70%;
     height: 70%;
+    padding: 40px;
 
     text-align: center;
     
