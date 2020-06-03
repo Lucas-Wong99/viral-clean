@@ -35,9 +35,8 @@ module.exports = (db) => {
 
   });
 
+  // Retrieve all messages for the current user
   router.get('/messages', (req, res) => {
-    const queryParams = [req.session.user_id];
-
     const query = `
     SELECT *
     FROM (
@@ -65,13 +64,13 @@ module.exports = (db) => {
     ORDER BY sent_at DESC;
     `;
 
-
     const userId = req.session.user_id;
-    retrieveUserFromDB(db, req.session.user_id)
+    const queryParams = [userId];
+
+    retrieveUserFromDB(db, userId)
     .then((username) => {
       db.query(query, queryParams)
       .then((results) => {
-        // console.log(results.rows);
         const messages = results.rows;
         res.render('all_messages', { messages, username, userId });
     });
@@ -79,9 +78,8 @@ module.exports = (db) => {
 
   });
 
-  // Get starred items for the user with this id
+  // Get starred items for the current user
   router.get('/favourites', (req, res) => {
-    const queryParams = [req.session.user_id];
 
     let query = `
     SELECT items.*, user_favourites.user_id
@@ -90,7 +88,10 @@ module.exports = (db) => {
     WHERE user_id = $1;
     `;
 
-    retrieveUserFromDB(db, req.session.user_id)
+    const userId = req.session.user_id;
+    const queryParams = [userId];
+
+    retrieveUserFromDB(db, userId)
     .then((username) => {
       db.query(query, queryParams)
       .then(data => {
@@ -101,23 +102,22 @@ module.exports = (db) => {
     })
   });
 
+  // Add item to the favourites
   router.post('/favourites', (req, res) => {
-    console.log(req.body);
-    const queryParams = [req.session.user_id, req.body.item_id];
     let query = `
     INSERT INTO user_favourites (user_id, item_id)
     VALUES ($1, $2);
     `;
+
+    const queryParams = [req.session.user_id, req.body.item_id];
     db.query(query, queryParams)
       .then(() => {
-        // res.redirect('/api/favourites');
         res.status(200).send('IT WORKED');
       });
   });
 
+  // Delete item from the favourites
   router.post('/favourites/:id', (req, res) => {
-    const queryParams = [req.session.user_id, req.params.id];
-
     let query = `
       DELETE
       FROM user_favourites
@@ -126,18 +126,20 @@ module.exports = (db) => {
       RETURNING item_id;
     `;
 
+    const queryParams = [req.session.user_id, req.params.id];
+
     db.query(query, queryParams)
       .then((result) => {
         res.status(200).send(result.rows[0]);
       });
   });
 
+  // Render the home page
   router.get('/home', (req, res) => {
     retrieveUserFromDB(db, req.session.user_id)
     .then((username) => {
       res.render('home', { username });
     })
-    // res.render('home', { user_id: req.session.user_id })
   });
 
 

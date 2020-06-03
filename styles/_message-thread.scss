@@ -3,9 +3,13 @@
   border: 2px solid darkgrey;
 }
 
-.messages-thread-container {
+@mixin flexColumn {
   display: flex;
   flex-direction: column;
+}
+
+.messages-thread-container {
+  @include flexColumn();
 
   width: 60%;
   margin: 40px auto;
@@ -45,8 +49,7 @@
   }
 
   .only-messages-container {
-    display: flex;
-    flex-direction: column;
+    @include flexColumn();
 
     .thread-own-message {
       align-self: flex-end;

@@ -4,6 +4,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 3;
 
   height: 120px;
   width: 100%;
@@ -34,7 +35,6 @@ nav {
   }
 
   .nav-logo a:hover, ul a:hover {
-    // color: gray;
     text-decoration: underline;
   }
 

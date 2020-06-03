@@ -1,16 +1,10 @@
-/*
- * All routes for Items are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /items
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 const { retrieveUserFromDB } = require('../lib/helpers');
 
 module.exports = (db) => {
 
+  // Get all listings
   router.get('/', (req, res) => {
 
     let query = `
@@ -53,12 +47,8 @@ module.exports = (db) => {
           ON items.id = x.item_id
       WHERE items.is_deleted = FALSE
     `;
-    // const check = function (array) {
-    //   return array.length > 0 ? `AND` : `WHERE` ;
-    // };
 
     if (input_string) {
-      // const hasLength = check(queryParams);
       queryParams.push(`%${input_string}%`)
       query += `
         AND lower(items.name) LIKE lower($${queryParams.length})
@@ -66,7 +56,6 @@ module.exports = (db) => {
     }
 
     if (min_price) {
-      // const hasLength = check(queryParams);
       queryParams.push(`${min_price * 100}`)
       query += `
         AND items.price > $${queryParams.length}
@@ -74,7 +63,6 @@ module.exports = (db) => {
     }
 
     if (max_price) {
-      // const hasLength = check(queryParams);
       queryParams.push(`${max_price * 100}`)
       query += `
         AND items.price < $${queryParams.length}
@@ -82,7 +70,6 @@ module.exports = (db) => {
     }
 
     if (city) {
-      // const hasLength = check(queryParams);
       queryParams.push(`%${city}%`)
       query += `
         AND lower(items.city) LIKE lower($${queryParams.length})
@@ -107,9 +94,6 @@ module.exports = (db) => {
         break;
     }
 
-    console.log(query);
-    console.log(queryParams);
-
     const userId = req.session.user_id;
 
     retrieveUserFromDB(db, userId)
@@ -117,14 +101,13 @@ module.exports = (db) => {
         db.query(query, queryParams)
         .then(data => {
           const items = data.rows;
-          console.log(items);
           res.render("partials/_items_container", { items, username, userId });
         });
       })
 
   });
 
-  //Gets the form that creates a new item listing
+  // Gets the form that creates a new item listing
   router.get('/new', (req, res) => {
     const userId = req.session.user_id;
 
@@ -135,6 +118,7 @@ module.exports = (db) => {
   });
 
 
+  // Create a new listing
   router.post('/', (req, res) => {
     const query = `
     INSERT INTO items (seller_id, name, description, price, image_url, city)
@@ -148,9 +132,9 @@ module.exports = (db) => {
       });
   });
 
+  // Render the full item page
   router.get('/:id', (req, res) => {
-    const userId = req.session.user_id;
-    const itemId = req.params.id;
+
     const query = `
     SELECT items.*, users.name as seller_name, x.user_id
     FROM items
@@ -163,9 +147,9 @@ module.exports = (db) => {
     WHERE items.id = $2;
 
     `;
-
-    //user_favourites ON users.id = user_favourites.user_id
-    // WHERE items.id = $1;
+    const userId = req.session.user_id;
+    const itemId = req.params.id;
+    
     const queryParams = [userId, itemId];
 
     retrieveUserFromDB(db, userId)
@@ -178,6 +162,7 @@ module.exports = (db) => {
       })
   });
 
+  // Delete an item (set is_deleted flag to true)
   router.post('/:id/delete', (req, res) => {
     const queryParams = [req.params.id];
     const query = `
@@ -193,6 +178,7 @@ module.exports = (db) => {
         });
   });
 
+  // Mark an item as sold (set is_sold flag to true)
   router.post('/:id/sell', (req, res) => {
     const queryParams = [req.params.id];
     const query = `
@@ -208,6 +194,7 @@ module.exports = (db) => {
         });
   });
 
+  // Get all messages regarding this item and render the message_thread view
   router.get('/:id/messages', (req, res) => {
     const queryParams = [req.params.id];
     const query = `
@@ -218,13 +205,6 @@ module.exports = (db) => {
     WHERE item_id = $1
     ORDER BY sent_at DESC;
     `;
-
-    // `SELECT *, item_id, items.name AS item_name, items.seller_id as item_seller_id
-    // FROM messages
-    // JOIN items
-    // ON item_id = items.id
-    // WHERE item_id = 4;
-    // `;
 
     const userId = req.session.user_id;
 
@@ -251,39 +231,29 @@ module.exports = (db) => {
           res.render('message_thread', { messages, username, userId, item_name, item_seller_id, item_id, receiverToPass });
         });
       })
-
   });
-
+   
+  //Posts a new message to the database and then renders a partial with the data returned from the query
   router.post('/:id/messages', (req, res) => {
 
-    const senderId = req.session.user_id;
-
-    console.log(req);
-
-    const receiverId = req.body.receiver_id;
-    const message = req.body.message;
-
-    const itemId = req.params.id;
-
-    const queryParams = [senderId, receiverId, itemId, message];
     const query = `
     INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
     VALUES ($1, $2, $3, $4)
     RETURNING *;
     `;
 
-    const userId = req.session.user_id;
+    const senderId = req.session.user_id;
+    const receiverId = req.body.receiver_id;
+    const message = req.body.message;
+    const itemId = req.params.id;
+
+    const queryParams = [senderId, receiverId, itemId, message];
+    const userId = senderId;
 
     db.query(query, queryParams)
       .then(data => {
-        console.log('SUCCESS!')
-        // res.status(200).end();
-        // res.send(data.rows[0]);
-
         const message = data.rows[0];
-
         res.render('partials/_message_inside_thread', { message, userId });
-
       });
   });
 
