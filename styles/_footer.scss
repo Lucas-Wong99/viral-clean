@@ -1,0 +1,25 @@
+@import 'utilities';
+
+.main-footer {
+
+  height: 140px;
+  background-color: $myrtleGreen;
+
+  @include flexColumnCenter;
+  justify-content: flex-end;
+
+  span {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: darkgray;
+    a {
+      color: darkgray;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: $plainWhite;
+    }
+  }
+  
+}
