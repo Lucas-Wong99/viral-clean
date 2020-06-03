@@ -11,9 +11,9 @@
     </div>
     <div class="message-info">
       <% if (message.receiver_id === Number(userId)) { %>
-          <p>FROM: <%= message.receiver %></p>
+          <p>FROM: <%= message.reciever %></p>
         <% } else { %>
-          <p>TO: <%= message.receiver %></p>
+          <p>TO: <%= message.reciever %></p>
         <% } %>
       
       <span> <%= moment(message.sent_at).fromNow() %></span>
