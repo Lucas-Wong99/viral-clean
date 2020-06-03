@@ -1,13 +1,8 @@
-@mixin flexCenter{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+@import 'utilities';
 
 section {
   
-  @include flexCenter();
+  @include flexColumnCenter();
 
   height: 100vh;
   background-image: url(https://images.unsplash.com/photo-1583947215259-38e31be8751f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
@@ -15,11 +10,11 @@ section {
   background-repeat: no-repeat;
 
   .layer {
-    @include flexCenter();
+    @include flexColumnCenter();
 
     border-radius: 10%;
 
-    background-color: rgba(119,136,153, 0.6);
+    background-color: rgba(45, 121, 118, 0.5  );
     margin: auto;
     width: 70%;
     height: 70%;
@@ -27,12 +22,12 @@ section {
     text-align: center;
     
     h1 {
-      color: white;
+      color: $plainWhite;
       font-size: 50px;
     }
 
     p {
-      color: white;
+      color: $plainWhite;
       font-size: 28px;
     }
   }
@@ -41,9 +36,9 @@ section {
     text-decoration: none;
     height: 80px;
     width: 400px;
-    border: 5px solid whitesmoke;
+    border: 5px solid  $plainWhite;
     background-color: inherit;
-    color: whitesmoke;
+    color:  $plainWhite;
     font-size: 50px;
     cursor: pointer;
   }

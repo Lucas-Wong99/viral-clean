@@ -1,0 +1,57 @@
+$black: #17252A;
+$myrtleGreen: #2B7A78;
+$keppel: #3AAFA9;
+$azureishWhite: #DEF2F1;
+$plainWhite: #FEFFFF;
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flexColumnCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin buttonStyling {
+  color: $plainWhite;
+  background-color: $myrtleGreen;
+  outline: none;
+}
+
+@mixin buttonHoverFeatures {
+  cursor: pointer;
+  background-color: $keppel;
+}
+
+@mixin containerBorder {
+  border-radius: 10px;
+  border: 2px solid $myrtleGreen;
+}
+
+@mixin inputStyling {
+  border-radius: 10px;
+  border: 2px solid $myrtleGreen;
+  padding: 10px;
+  background-color: $plainWhite;
+  font-size: 20px;
+  outline: none;
+}
+
+@mixin tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: $black;
+  color: $plainWhite;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}

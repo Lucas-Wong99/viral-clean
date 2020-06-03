@@ -1,22 +1,14 @@
-@mixin containerBorder {
-  border-radius: 10px;
-  border: 2px solid darkgrey;
-}
-
-@mixin flexColumn {
-  display: flex;
-  flex-direction: column;
-}
+@import 'utilities';
 
 .messages-thread-container {
   @include flexColumn();
-
-  width: 60%;
-  margin: 40px auto;
-  padding: 20px;
   @include containerBorder();
 
-  background-color: rgb(236, 230, 230);
+  margin: 40px auto;
+  width: 60%;
+  padding: 20px;
+
+  background-color: $azureishWhite;
 
   h3 {
     margin-top: 0;
@@ -29,44 +21,46 @@
     align-items: center;
 
     textarea {
+      @include containerBorder();
+      margin-bottom: 10px;
+      width: 60%;
+      padding: 10px;
       resize: none;
       outline: none;
-      padding: 10px;
-      width: 60%;
-      margin-bottom: 10px;
-      @include containerBorder();
     }
 
     button {
+      @include containerBorder();
+      margin-left: 10px;
       height: 60%;
       padding: 10px;
-      margin-left: 10px;
-      outline: none;
-      cursor: pointer;
-      @include containerBorder();
+      @include buttonStyling();
     }
-    
+    button:hover {
+      @include buttonHoverFeatures();
+    }
   }
 
   .only-messages-container {
     @include flexColumn();
 
     .thread-own-message {
-      align-self: flex-end;
-      max-width: 40%;
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: lightblue;
       @include containerBorder();
+      align-self: flex-end;
+      margin-bottom: 10px;
+      max-width: 40%;
+      padding: 10px;
+      background-color: #69b0ab;
+      color:white;
     }
   
     .thread-message {
-      align-self: flex-start;
-      max-width: 40%;
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: lightgrey;
       @include containerBorder();
+      align-self: flex-start;
+      margin-bottom: 10px;
+      max-width: 40%;
+      padding: 10px;
+      background-color: $plainWhite;
     }
   }
 

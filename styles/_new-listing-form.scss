@@ -1,35 +1,20 @@
-@mixin inputStyling {
-  border-radius: 10px;
-  border: 2px solid grey;
-  padding: 10px;
-  background-color: transparent;
-  font-size: 20px;
-  outline: none;
-}
+@import 'utilities';
 
-@mixin flexColumn {
-  display: flex;
-  flex-direction: column;
-}
-
-$coolBlack: #333333;
 $twentyPx: 20px;
 
 .new-listing-container {
   @include flexColumn();
+  @include containerBorder(); 
   align-items: center;
-  padding: $twentyPx * 2;
   margin: ($twentyPx * 3) auto;
-
   width: 90%;
-  background-color: rgb(236, 230, 230);
-  border: 2px solid darkgrey;
-  border-radius: 10px;
+  padding: $twentyPx * 2;
+  background-color: $azureishWhite;
 
   h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 3rem;
-    color: $coolBlack;
+    color: $black;
   }
 
   form {
@@ -66,24 +51,25 @@ $twentyPx: 20px;
       }
 
       input {
-        height: $twentyPx * 3;
         @include inputStyling();
+        height: $twentyPx * 3;
       }
   
       textarea {
-        resize: none;
         @include inputStyling();
+        resize: none;
       }
 
       button {
+        @include containerBorder();
         margin: auto;
-        height: $twentyPx * 3;
         width: 60%;
-        border-radius: $twentyPx;
-        border: 2px solid $coolBlack;
-        color: white; 
-        background-color: $coolBlack;
+        height: $twentyPx * 3;
         font-size: 30px;
+        @include buttonStyling();
+      }
+      button:hover {
+        @include buttonHoverFeatures();
       }
     }
   }

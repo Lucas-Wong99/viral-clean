@@ -58,7 +58,7 @@
         </div>
         <div class="location-date-container">
           <span>City: <%= item.city %></span>
-          <span>Posted: 3 days ago</span>
+          <span>Posted: <%= moment(item.date_listed).fromNow() %></span>
           <span>Seller: <%= item.seller_name %></span>
         </div>
 

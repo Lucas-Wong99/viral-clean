@@ -1,16 +1,12 @@
-@mixin containerBorder {
-  border-radius: 10px;
-  border: 2px solid darkgrey;
-}
+@import 'utilities';
 
 .message-container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin: 20px auto;
-  padding: 30px;
+  @include flexColumn;
   @include containerBorder();
-  background-color: rgb(236, 230, 230);
+  margin: 20px auto;
+  width: 90%;
+  padding: 30px;
+  background-color: $azureishWhite;
 
   h2 {
     margin-top: 0;
@@ -19,22 +15,22 @@
   .message-body {
     display: flex;
     justify-content: space-between;
-
     padding: 20px;
 
     .message-text {
       @include containerBorder();
+      margin-right: 20px;
       width: 70%;
       padding: 10px;
-      margin-right: 20px;
       font-size: 18px;
+      background-color: $plainWhite; 
     }
 
     .message-image {
 
       img {
-        max-height: 100px;
         @include containerBorder();
+        max-height: 100px;
       }
     }
   }
@@ -44,14 +40,14 @@
 
     .message-dialogue-button {
       @include containerBorder();
-      text-decoration: none;
-      padding: 10px;
-      color: white;
-      background-color: #333333;
-      outline: none;
       margin-right: 50px;
+      padding: 10px;
+      text-decoration: none;
+      @include buttonStyling();
     }
 
-
+    .message-dialogue-button:hover {
+      @include buttonHoverFeatures();
+    }
   }
 }

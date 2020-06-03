@@ -1,17 +1,4 @@
-@mixin tooltip {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
+@import 'utilities';
 
 .own-item-footer {
   display: flex;
@@ -19,8 +6,8 @@
 
   .item-sold {
     margin: 0;
-    color: red;
     font-size: 34px;
+    color: red;
   }
 
   .sell-button {
@@ -29,7 +16,6 @@
 
     .fa-dollar-sign {
       color: darkgreen;
-      
     }
     span {
       @include tooltip();

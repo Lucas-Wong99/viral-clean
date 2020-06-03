@@ -1,16 +1,17 @@
+@import 'utilities';
+
 #search-form {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn;
+  @include containerBorder;
+
   justify-content: space-around;
   align-items: center;
 
   margin: 40px auto 0 auto;
-  border: 2px solid darkgrey;
-  border-radius: 10px;
   width: 50%;
   height: 120px;
 
-  background-color: rgb(236, 230, 230);
+  background-color: $azureishWhite;
 
   .search-form-main-field {
     display: flex;
@@ -24,25 +25,23 @@
     .search-form-submit {
       border: none;
       padding: 0 20px;
-      background-color: rgb(133, 133, 245);
-      color: white;
+      @include buttonStyling();
     }
 
     .search-form-submit:hover {
-      cursor: pointer;
-      background-color: rgb(113, 113, 241);
+      @include buttonHoverFeatures();
     }
 
     .search-form-order {
       width: 20%;
       border-left: none;
       padding-left: 10px;
-      background-color: white;
+      background-color: $plainWhite;
     }
 
     .search-form-order:hover {
       cursor: pointer;
-      background-color: rgb(240, 232, 232);
+      background-color: $azureishWhite;
     }
   }
 
