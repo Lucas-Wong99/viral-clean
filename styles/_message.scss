@@ -12,6 +12,10 @@
   @include containerBorder();
   background-color: rgb(236, 230, 230);
 
+  h2 {
+    margin-top: 0;
+  }
+
   .message-body {
     display: flex;
     justify-content: space-between;
@@ -19,23 +23,21 @@
     padding: 20px;
 
     .message-text {
-      flex-grow: 14;
+      @include containerBorder();
+      // flex-grow: 14;
+      width: 70%;
+      padding: 10px;
+      margin-right: 20px;
       font-size: 18px;
     }
 
     .message-image {
-      flex-grow: 2;
 
       img {
         max-height: 100px;
         @include containerBorder();
       }
     }
-
-    .message-info {
-      flex-grow: 1;
-    }
-
   }
 
   .message-button-container {
@@ -45,7 +47,10 @@
       @include containerBorder();
       text-decoration: none;
       padding: 10px;
+      color: white;
+      background-color: #333333;
       outline: none;
+      margin-right: 50px;
     }
 
 

@@ -18,9 +18,13 @@
   font-size: 20px;
 
   .item-header {
-    height: 8%;
+    height: 16%;
     display: flex;
     justify-content: space-between;
+
+    .item-price {
+      font-size: 30px;
+    }
   }
 
   .item-main {
@@ -44,6 +48,11 @@
 
   .item-footer {
     height: 8%;
+
+    .favourite-button:hover {
+      cursor: pointer;
+      color: yellow;
+    }
 
     .item-sold {
       margin: 0;

@@ -22,22 +22,22 @@
         <div class="price-name-container">
           <div class="new-item-form__field-wrapper" id="name-input">
             <label for="new-item-form__name">Name:</label>
-            <input placeholder="Enter The Name of Your Item" type="text" name="name"id="new-item-form__name" maxlength="70">
+            <input placeholder="Enter The Name of Your Item" type="text" name="name"id="new-item-form__name" maxlength="70" required>
           </div>
           <div class="new-item-form__field-wrapper" id="price-input">
             <label for="new-item-form__cost">Price:</label>
-            <input placeholder="Price For Item" type="number" name="price_for_item" id="new-item-form__cost">
+            <input placeholder="Price For Item" type="number" name="price_for_item" id="new-item-form__cost" required>
           </div>
         </div>
 
         <div class="image-city-container">
           <div class="new-item-form__field-wrapper" id="image-input">
             <label for="new-item-form__image">Image URL:</label>
-            <input placeholder="Enter Image URL" type="text" name="image_photo_url" id="new-item-form__image">
+            <input placeholder="Enter Image URL" type="text" name="image_photo_url" id="new-item-form__image" required>
           </div>
           <div class="new-item-form__field-wrapper" id="city-input">
             <label for="new-item-form__city">City:</label>
-            <input placeholder="Enter The City" type="text" name="city" id="new-item-form__city" />
+            <input placeholder="Enter The City" type="text" name="city" id="new-item-form__city" required />
           </div>
         </div>
 
@@ -49,7 +49,6 @@
       
         <div class="new-item-form__field-wrapper">
           <button>Create Posting</button>
-          <a id="item-form__cancel" href="/">Cancel</a>
         </div>
 
       </form>

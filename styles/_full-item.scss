@@ -45,6 +45,11 @@
       .fa-star {
         font-size: 30px;
       }
+
+      .fa-star:hover {
+        cursor: pointer;
+        color: yellow;
+      }
       
       .sell-button {
         position: relative;
@@ -145,6 +150,8 @@
     button {
       padding: 14px 50px;
       margin-top: 15px;
+      outline: none;
+      cursor: pointer;
       
       @include containerBorder();
       // height: 30%;

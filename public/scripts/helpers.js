@@ -151,6 +151,7 @@ const addEventListenerToSubmitMessage = () => {
       })
       .done(result => {
         $('#message-to-seller').val('');
+        window.location.href = "/api/messages";
       });
     });
 }

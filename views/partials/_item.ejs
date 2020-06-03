@@ -1,6 +1,6 @@
 <div class='item-container' data-id="<%= item.id%>">
   <div class='item-header'>
-    <span>$<%= item.price / 100 %></span>
+    <span class='item-price'>$<%= item.price / 100 %></span>
     <span><%= moment(item.date_listed).fromNow() %></span>
   </div>
   <div class='item-main'>

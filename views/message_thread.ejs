@@ -27,7 +27,7 @@
         <label for="message"></label>
         <input type="hidden" name="item_id" value="<%= item_id %>" id="thread-message-form-item-id">
         <input type="hidden" name="receiver_id" value="<%= receiverToPass %>">
-        <textarea placeholder="Message to <%= buyer_seller %>" name="message" id="new-message" cols="30" rows="4" maxlength="250"></textarea>
+        <textarea placeholder="Message to <%= buyer_seller %>" name="message" id="new-message" cols="30" rows="4" maxlength="250" required></textarea>
         <button type="submit">Send</button>
       </form>
       <div class='only-messages-container'>
