@@ -6,20 +6,16 @@
   background-color: $myrtleGreen;
 
   @include flexColumnCenter;
-  justify-content: flex-end;
 
-  span {
-    margin-bottom: 20px;
+  position: absolute;
+  // left: 0;
+  bottom: 0;
+  width: 100%;
+
     font-size: 22px;
     color: darkgray;
     a {
       color: darkgray;
       text-decoration: underline;
     }
-
-    a:hover {
-      color: $plainWhite;
-    }
-  }
-  
 }
