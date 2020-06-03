@@ -9,11 +9,13 @@ $(() => {
   addEventListenerToDeleteButtons();
 
   addEventListenerToSellButtons();
-  
+
   addEventListenerToFullItemDeleteButton();
 
   addEventListenerToFullItemSellButton();
 
   addEventListenerToSubmitMessage();
+
+  addEventListenerToThreadMessageFormSubmit();
 });
 

@@ -215,7 +215,8 @@ module.exports = (db) => {
     FROM messages
     JOIN items
     ON item_id = items.id
-    WHERE item_id = $1;
+    WHERE item_id = $1
+    ORDER BY sent_at DESC;
     `;
 
     // `SELECT *, item_id, items.name AS item_name, items.seller_id as item_seller_id
@@ -235,23 +236,35 @@ module.exports = (db) => {
           const item_name = data.rows[0].item_name;
           const item_seller_id = data.rows[0].item_seller_id;
           const item_id = data.rows[0].item_id;
-          res.render('message_thread', { messages, username, userId, item_name, item_seller_id, item_id });
+
+          const receiver_id = data.rows[0].receiver_id;
+          const sender_id = data.rows[0].sender_id;
+
+          let receiverToPass;
+
+          if (receiver_id === userId) {
+            receiverToPass = sender_id;
+          } else {
+            receiverToPass = receiver_id;
+          }
+
+          res.render('message_thread', { messages, username, userId, item_name, item_seller_id, item_id, receiverToPass });
         });
       })
 
   });
 
   router.post('/:id/messages', (req, res) => {
-    
+
     const senderId = req.session.user_id;
 
-    console.log(req.body);
+    console.log(req);
 
     const receiverId = req.body.receiver_id;
     const message = req.body.message;
-    
+
     const itemId = req.params.id;
-    
+
     const queryParams = [senderId, receiverId, itemId, message];
     const query = `
     INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
@@ -259,10 +272,18 @@ module.exports = (db) => {
     RETURNING *;
     `;
 
+    const userId = req.session.user_id;
+
     db.query(query, queryParams)
       .then(data => {
         console.log('SUCCESS!')
-        res.status(200).end();
+        // res.status(200).end();
+        // res.send(data.rows[0]);
+
+        const message = data.rows[0];
+
+        res.render('partials/_message_inside_thread', { message, userId });
+
       });
   });
 

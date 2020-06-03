@@ -141,18 +141,37 @@ const addEventListenerToSubmitMessage = () => {
       item_id: item_id,
       receiver_id: event.target.getAttribute("receiver-id")
     };
-  
       $.ajax({
         type: "POST",
         url: `/api/items/${item_id}/messages`,
-        data: { 
+        data: {
           message: $('#message-to-seller').val(),
           item_id: item_id,
           receiver_id: event.target.getAttribute("receiver-id")}
       })
       .done(result => {
-        console.log(result);
+        $('#message-to-seller').val('');
       });
     });
+}
+
+const addEventListenerToThreadMessageFormSubmit = () => {
+  $("#thread-message-form").on('submit', function(event) {
+    event.preventDefault();
+
+    const item_id = $("#thread-message-form-item-id").val();
+
+    const data = $(this).serialize();
+
+    $.ajax({
+      type: "POST",
+      url: `/api/items/${item_id}/messages`,
+      data: data
+    })
+    .done(result => {
+      $('#new-message').val('');
+      $('.only-messages-container').prepend(result);
+    })
+  });
 }
 

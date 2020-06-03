@@ -23,15 +23,19 @@
       <h3>Buying: <%= item_name %></h3>
         <% buyer_seller = 'Seller'; %>
      <% } %>
-      <form action="/api/messages" method="POST" class="message-form" item-id="<% item_id %>">
+      <form class="message-form" id="thread-message-form">
         <label for="message"></label>
+        <input type="hidden" name="item_id" value="<%= item_id %>" id="thread-message-form-item-id">
+        <input type="hidden" name="receiver_id" value="<%= receiverToPass %>">
         <textarea placeholder="Message to <%= buyer_seller %>" name="message" id="new-message" cols="30" rows="4" maxlength="250"></textarea>
         <button type="submit">Send</button>
       </form>
-      
-    <% for (const message of messages) { %>
-      <%- include('partials/_message_inside_thread', { message, userId }) %>
-    <% } %>
+      <div class='only-messages-container'>
+        <% for (const message of messages) { %>
+          <%- include('partials/_message_inside_thread', { message, userId }) %>
+        <% } %>
+      </div>
+
     </div>
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>

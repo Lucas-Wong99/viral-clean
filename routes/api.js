@@ -42,7 +42,7 @@ module.exports = (db) => {
     SELECT *
     FROM (
       SELECT DISTINCT ON(item_id)
-      messages.id as message_id,
+      x.id as message_id,
       message_text,
       item_id,
       items.name as item_name,
@@ -50,22 +50,22 @@ module.exports = (db) => {
       sent_at,
       receiver_id,
       users.name as receiver
-    FROM messages
+    FROM  (
+        SELECT *
+        FROM messages
+        ORDER BY sent_at DESC
+      ) as x
     JOIN items
-    ON messages.item_id = items.id
+    ON x.item_id = items.id
     JOIN users
-    ON users.id = messages.receiver_id
+    ON users.id = x.receiver_id
     WHERE sender_id = $1
     OR receiver_id = $1
     ) as y
     ORDER BY sent_at DESC;
     `;
 
-    // FROM (
-    //   SELECT *
-    //   FROM messages
-    //   ORDER BY sent_at DESC
-    // ) as x
+
     const userId = req.session.user_id;
     retrieveUserFromDB(db, req.session.user_id)
     .then((username) => {
