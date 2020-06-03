@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400;700&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -17,36 +18,36 @@
     <%- include('partials/_header') %>
     <main class="new-listing-container">
       <h2>Create New Listing</h2>
-      <form action="/api/items" method="POST" class="new-item-form">
+      <form action="/items" method="POST" class="new-item-form">
 
         <div class="price-name-container">
           <div class="new-item-form__field-wrapper" id="name-input">
             <label for="new-item-form__name">Name:</label>
-            <input placeholder="Enter The Name of Your Item" type="text" name="name"id="new-item-form__name" maxlength="70" required>
+            <input placeholder="Name" type="text" name="name"id="new-item-form__name" maxlength="40" required>
           </div>
           <div class="new-item-form__field-wrapper" id="price-input">
             <label for="new-item-form__cost">Price:</label>
-            <input placeholder="Price For Item" type="number" name="price_for_item" id="new-item-form__cost" required>
+            <input placeholder="Price" type="number" step="0.01" name="price_for_item" id="new-item-form__cost" required>
           </div>
         </div>
 
         <div class="image-city-container">
           <div class="new-item-form__field-wrapper" id="image-input">
             <label for="new-item-form__image">Image URL:</label>
-            <input placeholder="Enter Image URL" type="text" name="image_photo_url" id="new-item-form__image" required>
+            <input placeholder="Image URL" type="text" name="image_photo_url" id="new-item-form__image" required>
           </div>
           <div class="new-item-form__field-wrapper" id="city-input">
             <label for="new-item-form__city">City:</label>
-            <input placeholder="Enter The City" type="text" name="city" id="new-item-form__city" required />
+            <input placeholder="City" type="text" name="city" id="new-item-form__city" required />
           </div>
         </div>
 
         <div class="new-item-form__field-wrapper">
           <label for="new-item-form__description">Description of item:</label>
-          <textarea placeholder="Enter The Description of Your Item" name="description" id="item__description" cols="30" rows="10" maxlength="1000"></textarea>
+          <textarea placeholder="Description" name="description" id="item__description" cols="30" rows="10" maxlength="1000"></textarea>
         </div>
 
-      
+
         <div class="new-item-form__field-wrapper">
           <button>Create Posting</button>
         </div>

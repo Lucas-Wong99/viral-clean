@@ -4,6 +4,14 @@
   display: flex;
   justify-content: space-around;
 
+  a {
+    margin-top: 15px;
+  }
+
+  h3 {
+    word-wrap: break-word;
+  }
+
   .item-sold {
     margin: 0;
     font-size: 34px;
@@ -36,7 +44,7 @@
       color: red;
     }
     span {
-      @include tooltip(); 
+      @include tooltip();
     }
   }
 

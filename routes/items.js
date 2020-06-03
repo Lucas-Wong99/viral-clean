@@ -1,23 +1,23 @@
 const express = require('express');
 const router  = express.Router();
 const { retrieveUserFromDB } = require('../lib/helpers');
+const {
+  getAllListingsQuery,
+  filterListingsQuery,
+  createNewListingQuery,
+  getFullItemDetailsQuery,
+  deleteListingQuery,
+  sellListingQuery,
+  getAllMessagesForItemQuery,
+  addNewMessageQuery
+} = require('../lib/dbQueries');
 
 module.exports = (db) => {
 
   // Get all listings
   router.get('/', (req, res) => {
 
-    let query = `
-    SELECT items.*, user_id
-    FROM items
-    LEFT JOIN
-      (SELECT *
-        FROM user_favourites
-        WHERE user_id = $1) as x
-        ON items.id = x.item_id
-    WHERE items.is_deleted = FALSE
-    ORDER BY date_listed DESC;
-  `;
+    let query = getAllListingsQuery;
 
     const userId = req.session.user_id;
     const queryParams = [userId];
@@ -35,23 +35,16 @@ module.exports = (db) => {
   //Applies the designated filters through querying the database
   router.get('/filter', (req, res) => {
     const { input_string, min_price, max_price, city, order_by } = req.query;
+    const input = input_string.trim();
     let queryParams = [ req.session.user_id ];
 
-    let query = `
-      SELECT items.*, user_id
-      FROM items
-      LEFT JOIN
-        (SELECT *
-          FROM user_favourites
-          WHERE user_id = $1) as x
-          ON items.id = x.item_id
-      WHERE items.is_deleted = FALSE
-    `;
+    let query = filterListingsQuery;
 
-    if (input_string) {
-      queryParams.push(`%${input_string}%`)
+    if (input) {
+      queryParams.push(`%${input}%`)
       query += `
         AND lower(items.name) LIKE lower($${queryParams.length})
+        OR lower(items.description) LIKE lower($${queryParams.length})
       `
     }
 
@@ -104,7 +97,6 @@ module.exports = (db) => {
           res.render("partials/_items_container", { items, username, userId });
         });
       })
-
   });
 
   // Gets the form that creates a new item listing
@@ -117,39 +109,23 @@ module.exports = (db) => {
       })
   });
 
-
   // Create a new listing
   router.post('/', (req, res) => {
-    const query = `
-    INSERT INTO items (seller_id, name, description, price, image_url, city)
-    VALUES ($1, $2, $3, $4, $5, $6);
-    `;
+    const query = createNewListingQuery;
     const { name, description, image_photo_url, city, price_for_item } = req.body;
     const queryParams = [req.session.user_id, name, description, price_for_item * 100, image_photo_url, city];
     db.query(query, queryParams)
       .then(() => {
-        res.redirect('/api/myitems');
+        res.redirect('/myitems');
       });
   });
 
   // Render the full item page
   router.get('/:id', (req, res) => {
 
-    const query = `
-    SELECT items.*, users.name as seller_name, x.user_id
-    FROM items
-    JOIN users ON items.seller_id = users.id
-    LEFT JOIN
-        (SELECT *
-          FROM user_favourites
-          WHERE user_id = $1) as x
-          ON items.id = x.item_id
-    WHERE items.id = $2;
-
-    `;
+    const query = getFullItemDetailsQuery;
     const userId = req.session.user_id;
     const itemId = req.params.id;
-
     const queryParams = [userId, itemId];
 
     retrieveUserFromDB(db, userId)
@@ -165,12 +141,7 @@ module.exports = (db) => {
   // Delete an item (set is_deleted flag to true)
   router.post('/:id/delete', (req, res) => {
     const queryParams = [req.params.id];
-    const query = `
-      UPDATE items
-      SET is_deleted = true
-      WHERE id = $1
-      RETURNING id;
-    `;
+    const query =  deleteListingQuery;
 
     db.query(query, queryParams)
         .then(result => {
@@ -181,12 +152,7 @@ module.exports = (db) => {
   // Mark an item as sold (set is_sold flag to true)
   router.post('/:id/sell', (req, res) => {
     const queryParams = [req.params.id];
-    const query = `
-      UPDATE items
-      SET is_sold = true
-      WHERE id = $1
-      RETURNING id;
-    `;
+    const query = sellListingQuery;
 
     db.query(query, queryParams)
         .then(result => {
@@ -197,14 +163,7 @@ module.exports = (db) => {
   // Get all messages regarding this item and render the message_thread view
   router.get('/:id/messages', (req, res) => {
     const queryParams = [req.params.id];
-    const query = `
-    SELECT *, item_id, items.name AS item_name, items.seller_id as item_seller_id
-    FROM messages
-    JOIN items
-    ON item_id = items.id
-    WHERE item_id = $1
-    ORDER BY sent_at DESC;
-    `;
+    const query = getAllMessagesForItemQuery;
 
     const userId = req.session.user_id;
 
@@ -236,11 +195,7 @@ module.exports = (db) => {
   //Posts a new message to the database and then renders a partial with the data returned from the query
   router.post('/:id/messages', (req, res) => {
 
-    const query = `
-    INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *;
-    `;
+    const query = addNewMessageQuery;
 
     const senderId = req.session.user_id;
     const receiverId = req.body.receiver_id;

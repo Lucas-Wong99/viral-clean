@@ -23,25 +23,32 @@
       width: 70%;
       padding: 10px;
       font-size: 18px;
-      background-color: $plainWhite; 
+      background-color: $plainWhite;
     }
 
     .message-image {
+
+      width: 10%;
 
       img {
         @include containerBorder();
         max-height: 100px;
       }
     }
+
+    .message-info {
+      text-align: center;
+      width: 15%;
+    }
   }
 
   .message-button-container {
-    align-self: flex-end;
+    margin-top: 30px;
 
     .message-dialogue-button {
       @include containerBorder();
-      margin-right: 50px;
       padding: 10px;
+
       text-decoration: none;
       @include buttonStyling();
     }

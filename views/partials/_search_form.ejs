@@ -1,6 +1,6 @@
 <form name="search-form" id="search-form">
   <div class='search-form-main-field'>
-    <input type="text" name="input_string" placeholder="Search...">
+    <input type="text" name="input_string" placeholder="Search..." maxlength="40">
     <select name="order_by" class='search-form-order'>
       <option value="date">Date</option>
       <option value="price_asc">Price &#x2191</option>
@@ -10,9 +10,9 @@
 
   </div>
   <div class='search-form-filters'>
-    <input type="text" name="min_price" placeholder="Min price">
-    <input type="text" name="max_price" placeholder="Max price">
-    <input type="text" name="city" placeholder="City">
+    <input type="number" step="0.01" name="min_price" placeholder="Min price">
+    <input type="number" step="0.01" name="max_price" placeholder="Max price">
+    <input type="text" name="city" placeholder="City" maxlength="30">
 
   </div>
 

@@ -17,10 +17,11 @@
         <% } %>
 
       <span> <%= moment(message.sent_at).fromNow() %></span>
+      <div class="message-button-container">
+        <a href="/items/<%= message.item_id %>/messages" class="message-dialogue-button">View Dialog</a>
+      </div>
     </div>
 
   </div>
-  <div class="message-button-container">
-    <a href="/api/items/<%= message.item_id %>/messages" class="message-dialogue-button">View Dialog</a>
-  </div>
+
 </div>

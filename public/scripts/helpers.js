@@ -1,15 +1,15 @@
 const addEventListenerToFavouriteButtons = () => {
 
-  // When a favourite button is clicked, 
+  // When a favourite button is clicked,
   $('.favourite-button').on('click', (event) => {
-    
+
     // If an item is already favourited, remove it from favourites
     if ($(event.target).hasClass('yellow')) {
       const item_id = event.target.getAttribute("data-id");
       const data = { item_id };
       $.ajax({
         type: "POST",
-        url: `/api/favourites/${item_id}`,
+        url: `/favourites/${item_id}`,
         data: data
       })
       .done(result => {
@@ -22,7 +22,7 @@ const addEventListenerToFavouriteButtons = () => {
       const data = { item_id: event.target.getAttribute("data-id") };
       $.ajax({
         type: "POST",
-        url: "/api/favourites",
+        url: "/favourites",
         data: data
       })
       .done(confirmed => {
@@ -44,7 +44,7 @@ const addEventListenerToDeleteButtons = () => {
     // Make an ajax request to the delete route
     $.ajax({
       type: "POST",
-      url: `/api/items/${item_id}/delete`,
+      url: `/items/${item_id}/delete`,
       data: data
     })
 
@@ -67,7 +67,7 @@ const addEventListenerToSellButtons = () => {
     // Make an ajax request to the sell route
     $.ajax({
       type: "POST",
-      url: `/api/items/${item_id}/sell`,
+      url: `/items/${item_id}/sell`,
       data: data
     })
 
@@ -81,16 +81,16 @@ const addEventListenerToSellButtons = () => {
 
 
 const addEventListenerToSearchFormSubmit = () => {
-  
+
   // When the main search form is submitted
   $("#search-form").submit(function(event){
     event.preventDefault();
-    
+
     // Serialize its data and make a request to the filter route
     const data = $(this).serialize();
     $.ajax({
       type: "GET",
-      url: "/api/items/filter",
+      url: "/items/filter",
       data: data
     })
 
@@ -98,7 +98,7 @@ const addEventListenerToSearchFormSubmit = () => {
     .done(items => {
       $("body > .items-container").empty();
       $("body > .items-container").append(items);
-      
+
       // Add button event listeners for the appended items
       addEventListenerToFavouriteButtons();
       addEventListenerToSellButtons();
@@ -112,15 +112,15 @@ const addEventListenerToSearchFormOnChange = () => {
   // When the order by select element is changed
   $(".search-form-order").on('change', function(event){
     event.preventDefault();
-    
+
     // Serialize the data and make a request to the filter route
     const data = $('#search-form').serialize();
     $.ajax({
       type: "GET",
-      url: "/api/items/filter",
+      url: "/items/filter",
       data: data
     })
-    
+
     // On done, empty the main items container and append the results to it
     .done(items => {
       $("body > .items-container").empty();
@@ -136,17 +136,17 @@ const addEventListenerToSearchFormOnChange = () => {
 
 const addEventListenerToFullItemDeleteButton = () => {
 
-  // 
+  //
   $('.full-item-buttons > .delete-button').on('click', (event) => {
     const item_id = event.target.getAttribute("data-id");
       const data = { item_id };
       $.ajax({
         type: "POST",
-        url: `/api/items/${item_id}/delete`,
+        url: `/items/${item_id}/delete`,
         data: data
       })
       .done(result => {
-        window.location.href = "/api/items";
+        window.location.href = "/items";
       });
     });
 };
@@ -158,11 +158,11 @@ const addEventListenerToFullItemSellButton = () => {
     const data = { item_id };
       $.ajax({
         type: "POST",
-        url: `/api/items/${item_id}/sell`,
+        url: `/items/${item_id}/sell`,
         data: data
       })
       .done(result => {
-        window.location.href = "/api/items";
+        window.location.href = "/items";
       });
     });
 };
@@ -176,16 +176,16 @@ const addEventListenerToSubmitMessage = () => {
       //Submits an AJAX post request and passes a data to the server route
       $.ajax({
         type: "POST",
-        url: `/api/items/${item_id}/messages`,
+        url: `/items/${item_id}/messages`,
         data: {
           message: $('#message-to-seller').val(),
           item_id: item_id,
           receiver_id: event.target.getAttribute("receiver-id")}
       })
-      //On done, clears the input and redirects the user to /api/messages
+      //On done, clears the input and redirects the user to /messages
       .done(result => {
         $('#message-to-seller').val('');
-        window.location.href = "/api/messages";
+        window.location.href = "/messages";
       });
     });
 }
@@ -197,11 +197,11 @@ const addEventListenerToThreadMessageFormSubmit = () => {
 
     const item_id = $("#thread-message-form-item-id").val();
     const data = $(this).serialize();
-    
+
     //An ajax request to id/messages
     $.ajax({
       type: "POST",
-      url: `/api/items/${item_id}/messages`,
+      url: `/items/${item_id}/messages`,
       data: data
     })
     //On done, prepends the message returned to the message container and clears the input

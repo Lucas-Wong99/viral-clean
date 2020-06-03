@@ -7,11 +7,11 @@
   </div>
   <div class='item-main'>
     <img src="<%= item.image_url %>">
-    <a href="/api/items/<%= item.id %>"><h3><%= item.name %></h3></a>
+    <a href="/items/<%= item.id %>"><h3><%= item.name %></h3></a>
   </div>
   <div class='own-item-footer'>
 
-    
+
 
     <% if (!item.is_sold) { %>
       <a class='sell-button'>
