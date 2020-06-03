@@ -149,7 +149,7 @@ module.exports = (db) => {
     `;
     const userId = req.session.user_id;
     const itemId = req.params.id;
-    
+
     const queryParams = [userId, itemId];
 
     retrieveUserFromDB(db, userId)
@@ -222,7 +222,7 @@ module.exports = (db) => {
 
           let receiverToPass;
 
-          if (receiver_id === userId) {
+          if (receiver_id === Number(userId)) {
             receiverToPass = sender_id;
           } else {
             receiverToPass = receiver_id;
@@ -232,7 +232,7 @@ module.exports = (db) => {
         });
       })
   });
-   
+
   //Posts a new message to the database and then renders a partial with the data returned from the query
   router.post('/:id/messages', (req, res) => {
 
