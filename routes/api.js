@@ -70,33 +70,6 @@ module.exports = (db) => {
     ORDER BY sent_at DESC;
     `;
 
-    /*
-
-SELECT y.*, items.name as item_name, items.image_url as item_image_url, users.name as receiver
-    FROM (
-      SELECT DISTINCT ON (item_id)
-        x.id as message_id,
-        x.message_text,
-        x.item_id,
-        x.sent_at,
-        x.receiver_id
-      FROM (
-        SELECT *
-        FROM messages
-        ORDER BY sent_at DESC
-      ) as x
-      WHERE sender_id = $1
-      OR receiver_id = $1
-    ) as y
-    JOIN items
-    ON y.item_id = items.id
-    JOIN users
-    ON users.id = y.receiver_id
-    ORDER BY sent_at DESC;
-
-
-    */
-
     const userId = req.session.user_id;
     const queryParams = [userId];
 
