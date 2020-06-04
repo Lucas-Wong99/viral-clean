@@ -13,7 +13,20 @@ Viral Clean is an advertisment (buy/sell) website that targets the redistributio
 Viral Clean was done as a midterm project for Lighthouse Labs Web Development Bootcamp.
 
 ## Screenshots
-Will be added later
+#### Home page
+![Home page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/home-page.png?raw=true)
+#### All items page
+![All items page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/all-items.png?raw=true)
+#### Favourites page
+![Favourites page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/favourites.png?raw=true)
+#### My listings page
+![My listings page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/my-listings.png?raw=true)
+#### Create new listing page
+![Create new listing page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/create-listing.png?raw=true)
+#### Messages page
+![Messages page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/messages.png?raw=true)
+#### Message thread page
+![Message thread page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/message-thread.png?raw=true)
 
 ## Installation
 
