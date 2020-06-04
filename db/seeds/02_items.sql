@@ -14,6 +14,4 @@ INSERT INTO items (seller_id, name, description, price,  image_url, city)
 VALUES (5, 'N95 Face Masks', 'Heavy duty, hospital grade face masks', 2400, 'https://bramptonist.com/wp-content/uploads/2020/03/face-mask-n95-ppe-protection-scaled.jpg', 'Vancouver');
 INSERT INTO items (seller_id, name, description, price,  image_url, city)
 VALUES (2, 'Charmin Toilet Paper', 'You have all seen the ads, this stuff is the softest toilet paper on the market and I am selling it at fair price.', 2400, 'https://www.londondrugs.com/on/demandware.static/-/Sites-londondrugs-master/default/dwbc856526/products/L0180336/large/L0180336.JPG', 'Vancouver');
-INSERT INTO items (seller_id, name, description, price,  image_url, city)
-VALUES (1, 'Crest toothpaste 4.6 oz.', "Crest Pro-Health Toothpaste delivers superior protection for your teeth and gums. It's powerhouse, foamy formula fights cavities, plaque and gingivitis, relieves sensitivity, whitens, fights tartar and freshens breathe as it strengthens tooth enamel.", 3000, 'https://b3h2.scene7.com/is/image/BedBathandBeyond/143127820462352p?$690$&wid=690&hei=690', 'Burnaby');
 
