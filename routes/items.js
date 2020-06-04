@@ -43,8 +43,8 @@ module.exports = (db) => {
     if (input) {
       queryParams.push(`%${input}%`)
       query += `
-        AND lower(items.name) LIKE lower($${queryParams.length})
-        OR lower(items.description) LIKE lower($${queryParams.length})
+        AND (lower(items.name) LIKE lower($${queryParams.length})
+        OR lower(items.description) LIKE lower($${queryParams.length}))
       `
     }
 

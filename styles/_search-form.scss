@@ -20,6 +20,11 @@
     input {
       width: 100%;
       padding: 10px;
+      outline: none;
+    }
+
+    select {
+      outline: none;
     }
 
     .search-form-submit {
@@ -49,10 +54,12 @@
     display: flex;
     justify-content: space-between;
     width: 80%;
+    
 
     input {
       width: 20%;
       padding: 5px;
+      outline: none;
     }
   }
 

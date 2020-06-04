@@ -14,6 +14,3 @@
 -- VALUES (5, 'N95 Face Masks', 'Heavy duty, hospital grade face masks', 2400, 'https://bramptonist.com/wp-content/uploads/2020/03/face-mask-n95-ppe-protection-scaled.jpg', 'Vancouver');
 -- INSERT INTO items (seller_id, name, description, price,  image_url, city)
 -- VALUES (2, 'Charmin Toilet Paper', 'You have all seen the ads, this stuff is the softest toilet paper on the market and I am selling it at fair price.', 2400, 'https://www.londondrugs.com/on/demandware.static/-/Sites-londondrugs-master/default/dwbc856526/products/L0180336/large/L0180336.JPG', 'Vancouver');
-
-DELETE FROM items
-WHERE id = 29;
