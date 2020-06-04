@@ -34,10 +34,13 @@ section {
   }
 
   a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     height: 80px;
     width: 400px;
-    border: 5px solid  $plainWhite;
+    border: 5px solid $plainWhite;
     background-color: inherit;
     color:  $plainWhite;
     font-size: 50px;

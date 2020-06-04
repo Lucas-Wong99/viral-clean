@@ -8,7 +8,7 @@
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js",
-    "build": "node bin/resetdb.js && node server.js"
+    "build": "node bin/resetdb.js"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",
