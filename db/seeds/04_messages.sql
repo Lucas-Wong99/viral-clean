@@ -11,5 +11,5 @@
 -- INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
 -- VALUES (3, 2, 3, 'Hi, good, you?');
 -- INSERT INTO messages (sender_id, receiver_id, item_id, message_text)
--- VALUES (2, 3, 3, 'Good good');
+-- VALUES (2, 3, 3, 'Good good')
 DELETE FROM messages;
