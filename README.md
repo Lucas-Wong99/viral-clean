@@ -4,6 +4,7 @@ Viral Clean
 ## Table of contents
 * [Project Description](#project-description)
 * [Screenshots](#screenshots)
+* [Project Link](#project-link)
 * [Installation](#installation)
 * [Dependencies](#dependencies)
 
