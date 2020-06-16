@@ -12,6 +12,9 @@ Viral Clean is an advertisment (buy/sell) website that targets the redistributio
 
 Viral Clean was done as a midterm project for Lighthouse Labs Web Development Bootcamp.
 
+## Project Link
+[Viral Clean](https://viral-clean.herokuapp.com/login/3)
+
 ## Screenshots
 #### Home page
 ![Home page](https://github.com/Lucas-Wong99/viral-clean/blob/master/docs/home-page.png?raw=true)
